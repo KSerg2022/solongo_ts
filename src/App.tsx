@@ -26,6 +26,7 @@ export const App = () => {
         }
     }
 
+
     useEffect(() => {
         setPage(1)
     }, [totalPages])
