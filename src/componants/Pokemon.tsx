@@ -5,19 +5,28 @@ import {IPokemons} from "../model";
 
 interface PokemonProps {
     pokemons: IPokemons[]
-        limit: number
+    limit: number
+    page: number
 }
 
-export const Pokemon = ({pokemons, limit}: PokemonProps) => {
+export const Pokemon = ({pokemons, limit, page}: PokemonProps) => {
     const [cardsPokemon, setCardsPokemon] = useState<IPokemons[]>([])
+    const [start, setStart] = useState<number>(1)
+    const [end, setEnd] = useState<number>(1)
 
     useEffect(() => {
-        return setCardsPokemon(pokemons);
+        const start = (page - 1) * limit
+        setStart(start);
+        setEnd(start + limit)
+    }, [limit, page])
+
+    useEffect(() => {
+        setCardsPokemon(pokemons);
     }, [pokemons])
 
     return (
         <div className="row d-flex justify-content-center mb-3">
-            {cardsPokemon?.slice(0, limit).map(pokemon =>
+            {cardsPokemon?.slice(start, end).map(pokemon =>
                 <CardPokemon
                     key={pokemon.id}
                     sprites={pokemon.img_url}

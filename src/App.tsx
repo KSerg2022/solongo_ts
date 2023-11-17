@@ -27,10 +27,8 @@ export const App = () => {
     }
 
     useEffect(() => {
-        const qtyPages = Math.ceil(pokemons.length / limit)
-        setTotalPages(qtyPages)
-    }, [limit, pokemons])
-
+        setPage(1)
+    }, [totalPages])
 
     useEffect(() => {
         setPokemons(prevState => prevState = [])
@@ -48,7 +46,7 @@ export const App = () => {
         }
     }, [qty])
 
-    const sortedPokemons = () => {
+    const sortedPokemons = (): IPokemons[] => {
         return pokemons.sort(function (a: IPokemons, b: IPokemons) {
             // @ts-ignore
             return a.id - b.id
@@ -66,6 +64,10 @@ export const App = () => {
             <main>
                 <Pokemons
                     limit={limit}
+                    page={page}
+                    setPage={setPage}
+                    setTotalPages={setTotalPages}
+
                     // @ts-ignore
                     pokemons={sortedPokemons}/>
                 <Pagination totalPages={totalPages} page={page} setPage={setPage}/>

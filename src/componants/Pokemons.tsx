@@ -7,23 +7,37 @@ import {IPokemons} from "../model";
 interface PokemonsProps {
     pokemons: IPokemons[]
     limit: number
+    page: number
+    setPage: (number: number) => void
+    setTotalPages: (number: number) => void
 }
 
-export const Pokemons = ({pokemons, limit}: PokemonsProps) => {
+export const Pokemons = ({pokemons, limit, page, setPage, setTotalPages}: PokemonsProps) => {
     const [baseData, setBaseData] = useState<IPokemons[]>([])
     const [currentData, setCurrentData] = useState<IPokemons[]>([])
 
     useEffect(() => {
         setBaseData(pokemons)
-        setCurrentData(pokemons)
     }, [pokemons])
+
+    useEffect(() => {
+        setTotalPages(Math.ceil(currentData.length / limit))
+    }, [currentData])
+
+
+    useEffect(() => {
+        const qtyPages = Math.ceil(currentData.length / limit)
+        setTotalPages(qtyPages)
+    }, [limit])
+
 
     function filteredPokemons(filter: string[]) {
         filter.length === 0
-            ? setCurrentData(pokemons)
-            : setCurrentData([...baseData].filter((pokemon) => everyType(pokemon.types, filter)))
+            ?
+            setCurrentData(pokemons)
+            :
+            setCurrentData([...baseData].filter((pokemon: IPokemons) => everyType(pokemon.types, filter)));
     }
-
     function everyType(types: string | any[], filter: any[]) {
         return filter.every((e: any) => types.includes(e))
     }
@@ -31,9 +45,14 @@ export const Pokemons = ({pokemons, limit}: PokemonsProps) => {
     if (baseData.length > 0)
         return (
             <div>
-                <Filters pokemons={baseData} onFilter={filteredPokemons}/>
+                <Filters
+                    pokemons={baseData}
+                    onFilter={filteredPokemons}/>
                 <div className="container-fluid">
-                    <Pokemon limit={limit} pokemons={currentData}/>
+                    <Pokemon
+                        limit={limit}
+                        page={page}
+                        pokemons={currentData}/>
                 </div>
             </div>
         )
