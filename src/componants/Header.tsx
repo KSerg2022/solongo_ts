@@ -33,7 +33,7 @@ const Header = ({title, qty, setQty, limit, updateLimit}: HeaderProps) => {
                 ]}
             />
 
-            <h1 className="col col-lg-3">
+            <h1 className="col col-lg-4">
                 {title}{qty}
             </h1>
             <MyModal visible={modal} setVisible={() => setModal(false)}>

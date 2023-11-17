@@ -66,6 +66,7 @@ export const App = () => {
                     limit={limit}
                     page={page}
                     setPage={setPage}
+                    totalPages={totalPages}
                     setTotalPages={setTotalPages}
 
                     // @ts-ignore

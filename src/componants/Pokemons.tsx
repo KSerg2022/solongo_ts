@@ -3,16 +3,18 @@ import React, {useEffect, useState} from "react";
 import Pokemon from "./Pokemon";
 import Filters from "./Filters";
 import {IPokemons} from "../model";
+import {Pagination} from "./UI/MyPagination/Pagination";
 
 interface PokemonsProps {
     pokemons: IPokemons[]
     limit: number
     page: number
     setPage: (number: number) => void
+    totalPages: number
     setTotalPages: (number: number) => void
 }
 
-export const Pokemons = ({pokemons, limit, page, setPage, setTotalPages}: PokemonsProps) => {
+export const Pokemons = ({pokemons, limit, page, setPage, totalPages, setTotalPages}: PokemonsProps) => {
     const [baseData, setBaseData] = useState<IPokemons[]>([])
     const [currentData, setCurrentData] = useState<IPokemons[]>([])
 
@@ -48,12 +50,15 @@ export const Pokemons = ({pokemons, limit, page, setPage, setTotalPages}: Pokemo
                 <Filters
                     pokemons={baseData}
                     onFilter={filteredPokemons}/>
+
+                <Pagination totalPages={totalPages} page={page} setPage={setPage}/>
                 <div className="container-fluid">
                     <Pokemon
                         limit={limit}
                         page={page}
                         pokemons={currentData}/>
                 </div>
+
             </div>
         )
     else
