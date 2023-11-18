@@ -8,15 +8,20 @@ import {Pagination} from "./UI/MyPagination/Pagination";
 interface PokemonsProps {
     pokemons: IPokemons[]
     limit: number
-    page: number
-    setPage: (number: number) => void
-    totalPages: number
-    setTotalPages: (number: number) => void
 }
 
-export const Pokemons = ({pokemons, limit, page, setPage, totalPages, setTotalPages}: PokemonsProps) => {
+export const Pokemons = ({pokemons, limit}: PokemonsProps) => {
     const [baseData, setBaseData] = useState<IPokemons[]>([])
     const [currentData, setCurrentData] = useState<IPokemons[]>([])
+
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [page, setPage] = useState<number>(1)
+
+
+    useEffect(() => {
+        setPage(1)
+    }, [totalPages])
+
 
     useEffect(() => {
         setBaseData(pokemons)
@@ -40,6 +45,7 @@ export const Pokemons = ({pokemons, limit, page, setPage, totalPages, setTotalPa
             :
             setCurrentData([...baseData].filter((pokemon: IPokemons) => everyType(pokemon.types, filter)));
     }
+
     function everyType(types: string | any[], filter: any[]) {
         return filter.every((e: any) => types.includes(e))
     }
@@ -51,13 +57,14 @@ export const Pokemons = ({pokemons, limit, page, setPage, totalPages, setTotalPa
                     pokemons={baseData}
                     onFilter={filteredPokemons}/>
 
-                <Pagination totalPages={totalPages} page={page} setPage={setPage}/>
+                {totalPages && <Pagination totalPages={totalPages} page={page} setPage={setPage}/>}
                 <div className="container-fluid">
                     <Pokemon
                         limit={limit}
                         page={page}
                         pokemons={currentData}/>
                 </div>
+                {totalPages && <Pagination totalPages={totalPages} page={page} setPage={setPage}/>}
 
             </div>
         )
