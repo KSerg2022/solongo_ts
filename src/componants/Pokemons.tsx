@@ -4,6 +4,7 @@ import Pokemon from "./Pokemon";
 import Filters from "./Filters";
 import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
+import {usePagination} from "../hooks/pagination"
 
 interface PokemonsProps {
     pokemons: IPokemons[]
@@ -14,29 +15,11 @@ export const Pokemons = ({pokemons, limit}: PokemonsProps) => {
     const [baseData, setBaseData] = useState<IPokemons[]>([])
     const [currentData, setCurrentData] = useState<IPokemons[]>([])
 
-    const [totalPages, setTotalPages] = useState<number>(0);
-    const [page, setPage] = useState<number>(1)
-
-
-    useEffect(() => {
-        setPage(1)
-    }, [totalPages])
-
+    const {page, setPage, totalPages, setTotalPages} = usePagination({currentData, limit})
 
     useEffect(() => {
         setBaseData(pokemons)
     }, [pokemons])
-
-    useEffect(() => {
-        setTotalPages(Math.ceil(currentData.length / limit))
-    }, [currentData])
-
-
-    useEffect(() => {
-        const qtyPages = Math.ceil(currentData.length / limit)
-        setTotalPages(qtyPages)
-    }, [limit])
-
 
     function filteredPokemons(filter: string[]) {
         filter.length === 0

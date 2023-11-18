@@ -4,7 +4,6 @@ import './css/main.css'
 import Header from "./componants/Header";
 import Pokemons from "./componants/Pokemons";
 import {IPokemons} from "./model";
-
 import {usePokemons} from "./hooks/pokemons"
 
 
