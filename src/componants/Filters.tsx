@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
 
-import {useSelector} from "react-redux"
-import {useDispatch} from "react-redux";
-import {getPokemons, getTypes, getFilters} from "../redux/selectors"
-import {setTypes, setFilters} from "../redux/actions"
+import {useDispatch, useSelector} from "react-redux"
+import {getFilters, getPokemons, getTypes} from "../redux/selectors"
+import {setFilters, setTypes} from "../redux/actions"
 
 function getListTypes(data: IPokemons[]): string[] {
     let types = new Set<string>()
     for (let pokemon of data) {
-
-        // console.log('pokemon.types--', pokemon.types)
-
             for (let type of pokemon.types) {
                 types.add(type)
             }
@@ -31,7 +27,6 @@ function getListFilters(data: IPokemons[]) {
 }
 
 interface FiltersProps {
-    pokemons: IPokemons[],
     onFilter: (filterList: string[]) => void
 }
 

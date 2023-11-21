@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MyButton from "./UI/MyButton/MyButton";
 
 import MyModal from "./UI/MyModal/MyModal";
@@ -7,7 +7,7 @@ import {MySelect} from "./UI/MySelect/MySelect";
 
 import {useSelector} from "react-redux"
 import { useDispatch } from "react-redux";
-import {getLimit, getQty,getModal, getPokemons} from "../redux/selectors"
+import {getLimit, getQty, getPokemons} from "../redux/selectors"
 import {setLimit, setModal} from "../redux/actions"
 
 
@@ -17,11 +17,9 @@ interface HeaderProps {
 
 const Header = ({title}: HeaderProps) => {
     const dispatch = useDispatch();
-
     const pokemons = useSelector(getPokemons)
     const limit = useSelector(getLimit)
     const qty = useSelector(getQty)
-    // const modal = useSelector(getModal)
 
     const updateLimit = (value: React.SetStateAction<number>) => {
         if (value === -1) {
@@ -50,10 +48,7 @@ const Header = ({title}: HeaderProps) => {
             <h1 className="col col-lg-4">
                 {title}{qty}
             </h1>
-            <MyModal
-                // visible={modal}
-                // setVisible={() => dispatch(setModal(false))}
-            >
+            <MyModal>
                 <FormQtyPok />
             </MyModal>
             <MyButton

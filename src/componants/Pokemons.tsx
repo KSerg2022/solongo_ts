@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 
 import Pokemon from "./Pokemon";
 import Filters from "./Filters";
 import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
-import {usePagination} from "../hooks/pagination"
 
-import {useSelector} from "react-redux"
-import { useDispatch } from "react-redux";
-import {getPokemons, getQty, getCurrentData, getLimit, getTotalPages} from "../redux/selectors"
-import {setCurrentData, setTotalPages} from "../redux/actions"
+import {useDispatch, useSelector} from "react-redux"
+import {getCurrentData, getLimit, getPokemons, getTotalPages} from "../redux/selectors"
+import {setCurrentData, setPage, setTotalPages} from "../redux/actions"
 
 
 export const Pokemons = () => {
@@ -20,15 +18,11 @@ export const Pokemons = () => {
     const totalPages = useSelector(getTotalPages)
     const limit = useSelector(getLimit)
 
-
-    useEffect(() => {
-        dispatch(setTotalPages(Math.ceil(currentData.length / limit)))
-    }, [currentData])
-
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)
         dispatch(setTotalPages(qtyPages))
-    }, [limit])
+        dispatch(setPage(1))
+    }, [limit, currentData])
 
 
     function filteredPokemons(filter: string[]) {
@@ -54,7 +48,6 @@ export const Pokemons = () => {
         return (
             <div>
                 <Filters
-                    pokemons={pokemons}
                     onFilter={filteredPokemons}/>
 
                 {totalPages && <Pagination />}

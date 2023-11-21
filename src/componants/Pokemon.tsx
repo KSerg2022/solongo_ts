@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import CardPokemon from "./CardPokemon";
-import {IPokemons} from "../model";
 
-import {useSelector} from "react-redux"
-import {useDispatch} from "react-redux";
-import {getCurrentData, getStart, getEnd, getLimit, getPage, getCardsPokemon} from "../redux/selectors"
-import {setStart, setEnd, addCardsPokemon} from "../redux/actions"
+import {useDispatch, useSelector} from "react-redux"
+import {getCardsPokemon, getCurrentData, getEnd, getLimit, getPage, getStart} from "../redux/selectors"
+import {addCardsPokemon, setEnd, setStart} from "../redux/actions"
 
 
 export const Pokemon = () => {
