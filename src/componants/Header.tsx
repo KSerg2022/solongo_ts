@@ -5,17 +5,32 @@ import MyModal from "./UI/MyModal/MyModal";
 import FormQtyPok from "./FormQtyPok";
 import {MySelect} from "./UI/MySelect/MySelect";
 
+import {useSelector} from "react-redux"
+import { useDispatch } from "react-redux";
+import {getLimit, getQty,getModal, getPokemons} from "../redux/selectors"
+import {setLimit, setModal} from "../redux/actions"
+
+
 interface HeaderProps {
     title: string,
-    qty: number,
-    setQty: (qtyUpdate: number) => void
-    limit: number
-    updateLimit: (value: React.SetStateAction<number>) => void
 }
 
-const Header = ({title, qty, setQty, limit, updateLimit}: HeaderProps) => {
-    const [modal, setModal] = useState<boolean>(false)
+const Header = ({title}: HeaderProps) => {
 
+    const dispatch = useDispatch();
+
+    const pokemons = useSelector(getPokemons)
+    const limit = useSelector(getLimit)
+    const qty = useSelector(getQty)
+    const modal = useSelector(getModal)
+
+    const updateLimit = (value: React.SetStateAction<number>) => {
+        if (value === -1) {
+            dispatch(setLimit(pokemons.length))
+        } else {
+            dispatch(setLimit(+value))
+        }
+    }
 
     return (
         <div className="header row justify-content-md-center">
@@ -36,15 +51,17 @@ const Header = ({title, qty, setQty, limit, updateLimit}: HeaderProps) => {
             <h1 className="col col-lg-4">
                 {title}{qty}
             </h1>
-            <MyModal visible={modal} setVisible={() => setModal(false)}>
-                <FormQtyPok qty={qty} setQty={setQty} setModal={setModal}/>
+            <MyModal
+                visible={modal}
+                setVisible={() => dispatch(setModal(false))}>
+                <FormQtyPok />
             </MyModal>
             <MyButton
                 // @ts-ignore
                 type="button"
                 title="Input quantity pokemons..."
                 className="col-lg-3"
-                onClick={() => setModal(true)}
+                onClick={() =>  dispatch(setModal(true))}
             />
         </div>
     );

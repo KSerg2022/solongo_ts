@@ -1,16 +1,21 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import axios from "axios";
-
 import {IPokemons} from "../model";
+
+import {useDispatch, useSelector} from "react-redux"
+import {getPokemons, getQty} from "../redux/selectors"
+import {addPokemons} from "../redux/actions"
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
 
 export const usePokemons = () => {
-    const [pokemons, setPokemons] = useState<IPokemons[]>([])
-    const [qty, setQty] = useState<number>(16)
+    const dispatch = useDispatch();
+    const pokemons = useSelector(getPokemons)
+    const qty = useSelector(getQty)
+
 
     useEffect(() => {
-        setPokemons(prevState => prevState = [])
+        dispatch(addPokemons([]))
         let start: number = 1
         for (; start <= qty; start++) {
             axios.get(baseUrl.concat(String(start))).then((res) => {
@@ -20,11 +25,12 @@ export const usePokemons = () => {
                     img_url: res.data.sprites.other.home.front_default,
                     types: res.data.types.map((e: { type: { name: string; }; }) => e.type.name)
                 }
-                setPokemons(prevState => [...prevState, data])
+                dispatch(addPokemons(data))
+
             })
         }
     }, [qty])
 
-    return {pokemons, qty, setQty}
+    return {pokemons, qty}
 }
 

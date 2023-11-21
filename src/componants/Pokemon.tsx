@@ -3,37 +3,53 @@ import React, {useEffect, useState} from 'react';
 import CardPokemon from "./CardPokemon";
 import {IPokemons} from "../model";
 
-interface PokemonProps {
-    pokemons: IPokemons[]
-    limit: number
-    page: number
-}
+import {useSelector} from "react-redux"
+import {useDispatch} from "react-redux";
+import {getCurrentData, getStart, getEnd, getLimit, getPage, getCardsPokemon} from "../redux/selectors"
+import {setStart, setEnd, addCardsPokemon} from "../redux/actions"
 
-export const Pokemon = ({pokemons, limit, page}: PokemonProps) => {
-    const [cardsPokemon, setCardsPokemon] = useState<IPokemons[]>([])
-    const [start, setStart] = useState<number>(1)
-    const [end, setEnd] = useState<number>(1)
+
+export const Pokemon = () => {
+    const dispatch = useDispatch();
+
+    const currentData = useSelector(getCurrentData)
+    const cardsPokemon = useSelector(getCardsPokemon)
+    const limit = useSelector(getLimit)
+    const page = useSelector(getPage)
+    const start = useSelector(getStart)
+    const end = useSelector(getEnd)
+
 
     useEffect(() => {
         const start = (page - 1) * limit
-        setStart(start);
-        setEnd(start + limit)
+        dispatch(setStart(start))
+        dispatch(setEnd(start + limit))
     }, [limit, page])
 
+
     useEffect(() => {
-        setCardsPokemon(pokemons);
-    }, [pokemons])
+        dispatch(addCardsPokemon(currentData))
+    }, [currentData])
+
+    console.log('currentData --', currentData)
+    console.log('cardsPokemon --', cardsPokemon)
+    console.log('limit --', limit)
+    console.log('page --', page)
+    console.log('start-end--', start, end)
 
     return (
+    // @ts-ignore
         <div className="row d-flex justify-content-center mb-3">
-            {cardsPokemon?.slice(start, end).map(pokemon =>
-                <CardPokemon
-                    key={pokemon.id}
-                    sprites={pokemon.img_url}
-                    id={pokemon.id}
-                    name={pokemon.name}
-                    types={pokemon.types}
-                />
+            {/*// @ts-ignore*/}
+            {cardsPokemon.slice(start, end).map(pokemon =>
+                    <CardPokemon
+                        key={pokemon.id}
+                        sprites={pokemon.img_url}
+                        id={pokemon.id}
+                        name={pokemon.name}
+                        types={pokemon.types}
+                    />
+
             )
             }
         </div>

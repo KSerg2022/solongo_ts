@@ -6,48 +6,62 @@ import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
 import {usePagination} from "../hooks/pagination"
 
-interface PokemonsProps {
-    pokemons: IPokemons[]
-    limit: number
-}
+import {useSelector} from "react-redux"
+import { useDispatch } from "react-redux";
+import {getPokemons, getQty, getCurrentData, getLimit, getTotalPages} from "../redux/selectors"
+import {setCurrentData, setTotalPages} from "../redux/actions"
 
-export const Pokemons = ({pokemons, limit}: PokemonsProps) => {
-    const [baseData, setBaseData] = useState<IPokemons[]>([])
-    const [currentData, setCurrentData] = useState<IPokemons[]>([])
 
-    const {page, setPage, totalPages, setTotalPages} = usePagination({currentData, limit})
+export const Pokemons = () => {
+    const dispatch = useDispatch();
+
+    const pokemons = useSelector(getPokemons)
+    const currentData = useSelector(getCurrentData)
+    const totalPages = useSelector(getTotalPages)
+    const limit = useSelector(getLimit)
+
 
     useEffect(() => {
-        setBaseData(pokemons)
-    }, [pokemons])
+        dispatch(setTotalPages(Math.ceil(currentData.length / limit)))
+    }, [currentData])
+
+    useEffect(() => {
+        const qtyPages = Math.ceil(currentData.length / limit)
+        dispatch(setTotalPages(qtyPages))
+    }, [limit])
+
 
     function filteredPokemons(filter: string[]) {
         filter.length === 0
             ?
-            setCurrentData(pokemons)
+            dispatch(setCurrentData(sortedPokemons(pokemons)))
             :
-            setCurrentData([...baseData].filter((pokemon: IPokemons) => everyType(pokemon.types, filter)));
+           dispatch(setCurrentData([...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))));
     }
 
     function everyType(types: string | any[], filter: any[]) {
         return filter.every((e: any) => types.includes(e))
     }
 
-    if (baseData.length > 0)
+    const sortedPokemons = (pokemons: IPokemons[]): IPokemons[] => {
+        return pokemons.sort(function (a: IPokemons, b: IPokemons) {
+            // @ts-ignore
+            return a.id - b.id
+        })
+    }
+
+    if (pokemons.length > 0)
         return (
             <div>
                 <Filters
-                    pokemons={baseData}
+                    pokemons={pokemons}
                     onFilter={filteredPokemons}/>
 
-                {totalPages && <Pagination totalPages={totalPages} page={page} setPage={setPage}/>}
+                {totalPages && <Pagination />}
                 <div className="container-fluid">
-                    <Pokemon
-                        limit={limit}
-                        page={page}
-                        pokemons={currentData}/>
+                    <Pokemon />
                 </div>
-                {totalPages && <Pagination totalPages={totalPages} page={page} setPage={setPage}/>}
+                {totalPages && <Pagination  />}
 
             </div>
         )

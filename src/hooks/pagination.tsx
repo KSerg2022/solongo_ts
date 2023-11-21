@@ -1,29 +1,25 @@
 import React, {useEffect, useState} from "react";
 
 import {IPokemons} from "../model";
+import {useSelector} from "react-redux"
+import { useDispatch } from "react-redux";
+import {getTotalPages, getPage, getCurrentData, getLimit} from "../redux/selectors"
+import {setPage, setTotalPages} from "../redux/actions"
 
-interface UsePaginationProps {
-    currentData: IPokemons[]
-    limit: number
-}
+export const usePagination = () => {
+    const dispatch = useDispatch();
 
-export const usePagination = ({currentData, limit}: UsePaginationProps) => {
-    const [totalPages, setTotalPages] = useState<number>(0);
-    const [page, setPage] = useState<number>(1)
+    const currentData = useSelector(getCurrentData)
+    const limit = useSelector(getLimit)
 
-    useEffect(() => {
-        setPage(1)
-    }, [totalPages])
 
     useEffect(() => {
-        setTotalPages(Math.ceil(currentData.length / limit))
+        dispatch(setTotalPages(Math.ceil(currentData.length / limit)))
     }, [currentData])
-
 
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)
-        setTotalPages(qtyPages)
+        dispatch(setTotalPages(qtyPages))
     }, [limit])
 
-    return {page, setPage, totalPages, setTotalPages}
 };

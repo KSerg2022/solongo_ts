@@ -1,44 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux"
 
 import './css/main.css'
 import Header from "./componants/Header";
 import Pokemons from "./componants/Pokemons";
 import {IPokemons} from "./model";
-import {usePokemons} from "./hooks/pokemons"
+import {getPokemons, getQty} from "./redux/selectors"
+import {addPokemons, setNullPokemons} from "./redux/actions"
+import axios from "axios";
 
+const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
 
 export const App = () => {
-    const {pokemons, qty, setQty} = usePokemons()
-    const [limit, setLimit] = useState<number>(10)
+    const dispatch = useDispatch();
+    const pokemons = useSelector(getPokemons)
+    const qty = useSelector(getQty)
 
-    const updateLimit = (value: React.SetStateAction<number>) => {
-        if (value === -1) {
-            setLimit(pokemons.length)
-        } else {
-            setLimit(value)
+    useEffect(() => {
+        // dispatch(setNullPokemons([]))
+        let start: number = 1
+        for (; start <= qty; start++) {
+            axios.get(baseUrl.concat(String(start))).then((res) => {
+                let data: IPokemons = {
+                    id: res.data.id,
+                    name: res.data.name,
+                    img_url: res.data.sprites.other.home.front_default,
+                    types: res.data.types.map((e: { type: { name: string; }; }) => e.type.name)
+                }
+                dispatch(addPokemons(data))
+            })
         }
-    }
+    }, [qty])
 
-    const sortedPokemons = (): IPokemons[] => {
-        return pokemons.sort(function (a: IPokemons, b: IPokemons) {
-            // @ts-ignore
-            return a.id - b.id
-        })
-    }
+    // console.log('pokemons --', pokemons)
+    // console.log('qty --', qty)
 
     return (
         <div>
-            <Header title="Pokemon's list - "
-                    qty={qty}
-                    setQty={setQty}
-                    limit={limit}
-                    updateLimit={updateLimit}
-            />
+            <Header title="Pokemon's list - " />
             <main>
-                <Pokemons
-                    limit={limit}
-                    // @ts-ignore
-                    pokemons={sortedPokemons}/>
+                <Pokemons />
             </main>
         </div>
     );
