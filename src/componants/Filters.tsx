@@ -11,7 +11,7 @@ function getListTypes(data: IPokemons[]): string[] {
     let types = new Set<string>()
     for (let pokemon of data) {
 
-        console.log('pokemon.types--', pokemon.types)
+        // console.log('pokemon.types--', pokemon.types)
 
             for (let type of pokemon.types) {
                 types.add(type)
@@ -73,9 +73,6 @@ export const Filters = ({onFilter}: FiltersProps) => {
                             type="checkbox"
                             id={value}
                             name={value}
-                            // onChange={(e: { target: { name: string | number; }; }) => setFilters({
-                            //     ...filters,
-                            //     [e.target.name]: !filters[e.target.name]
                             onChange={(e: { target: { name: string | number; }; }) => dispatch(setFilters({
                                 ...filters,
                                 // @ts-ignore

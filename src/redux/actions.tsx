@@ -2,7 +2,7 @@ import {IPokemons} from '../model'
 
 // const addPokemons = {
 //     type: 'pokemons/addPokemons',
-//     pyaload: {
+//     payload: {
 //         id: '',
 //         name: '',
 //         img_url: '',
@@ -13,31 +13,31 @@ import {IPokemons} from '../model'
 export const addPokemons = (pokemon: IPokemons | []) => {
     return {
         type: 'pokemons/addPokemons',
-        pyaload: pokemon
+        payload: pokemon
     }
 }
-// export const setNullPokemons = (pokemon = []) => {
-//     return {
-//         type: 'pokemons/setNullPokemons',
-//         pyaload: pokemon
-//     }
-// }
+export const setPokemons = (pokemons: IPokemons[]) => {
+    return {
+        type: 'pokemons/setPokemons',
+        payload: pokemons
+    }
+}
 export const setQty = (qty: number) => {
     return {
         type: 'pokemons/setQty',
-        pyaload: qty
+        payload: qty
     }
 }
 export const setLimit = (limit: number) => {
     return {
         type: 'pokemons/setLimit',
-        pyaload: limit
+        payload: limit
     }
 }
 export const setCurrentData = (currentData: IPokemons[]) => {
     return {
         type: 'pokemons/setCurrentData',
-        pyaload: currentData
+        payload: currentData
     }
 }
 
@@ -45,19 +45,19 @@ export const setCurrentData = (currentData: IPokemons[]) => {
 export const addCardsPokemon = (cardsPokemon: IPokemons[]) => {
     return {
         type: 'pokemons/addCardsPokemon',
-        pyaload: cardsPokemon
+        payload: cardsPokemon
     }
 }
 export const setStart = (start: number) => {
     return {
         type: 'pokemons/setStart',
-        pyaload: start
+        payload: start
     }
 }
 export const setEnd = (end: number) => {
     return {
         type: 'pokemons/setEnd',
-        pyaload: end
+        payload: end
     }
 }
 
@@ -65,13 +65,13 @@ export const setEnd = (end: number) => {
 export const setPage = (page: number) => {
     return {
         type: 'pokemons/setPage',
-        pyaload: page
+        payload: page
     }
 }
 export const setTotalPages = (totalPages: number) => {
     return {
         type: 'pokemons/setTotalPages',
-        pyaload: totalPages
+        payload: totalPages
     }
 }
 
@@ -79,25 +79,25 @@ export const setTotalPages = (totalPages: number) => {
 export const setTypes = (types: string[]) => {
     return {
         type: 'filters/setTypes',
-        pyaload: types
+        payload: types
     }
 }
 export const setFilters = (filters: { [key: string]: boolean }) => {
     return {
         type: 'filters/setFilters',
-        pyaload: filters
+        payload: filters
     }
 }
 
 export const setModal = (modal: boolean) => {
     return {
         type: 'modal/setModal',
-        pyaload: modal
+        payload: modal
     }
 }
-export const setQtyUpdate = (qtyUpdate: number) => {
+export const setQtyUpdate = (qtyUpdate: any) => {
     return {
         type: 'modal/setQtyUpdate',
-        pyaload: qtyUpdate
+        payload: qtyUpdate
     }
 }

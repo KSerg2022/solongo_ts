@@ -16,7 +16,7 @@ export const initialState = {
     filters: {},
 
     modal: false,
-    qtyUpdate: null
+    qtyUpdate: 16,
 }
 
 
@@ -26,85 +26,83 @@ export const rootReducer = (state = initialState, action: any) => {
         case 'pokemons/addPokemons': {
             return {
                 ...state,
-                pokemons: [...state.pokemons, action.pyaload],
+                pokemons: [...state.pokemons, action.payload],
             };
         };
-        // case 'pokemons/setNullPokemons': {
-        //     return {
-        //         ...state,
-        //         pokemons: [action.pyaload],
-        //     };
-        // };
-
+        case 'pokemons/setPokemons': {
+            return {
+                ...state,
+                pokemons:  action.payload,
+            };
+        };
         case 'pokemons/setQty': {
             return {
-                ...state, qty: state.qty = action.payload,
+                ...state, qty: action.payload,
             };
         };
         case 'pokemons/setLimit': {
             return {
-                ...state, limit: state.limit = action.pyaload,
+                ...state, limit: action.payload,
             };
         };
         case 'pokemons/setCurrentData': {
             return {
-                ...state, currentData: state.currentData = action.pyaload,
+                ...state, currentData: action.payload,
             };
         };
 
 
         case 'pokemons/addCardsPokemon': {
             return {
-                ...state, cardsPokemon: state.cardsPokemon = action.pyaload,
+                ...state, cardsPokemon: action.payload,
             };
         };
         case 'pokemons/setStart': {
             return {
-                ...state, start: state.start = action.pyaload,
+                ...state, start: action.payload,
             };
         };
         case 'pokemons/setEnd': {
             return {
-                ...state, end: state.end = action.pyaload,
+                ...state, end: action.payload,
             };
         };
 
 
         case 'pokemons/setPage': {
             return {
-                ...state, page: state.page = action.pyaload,
+                ...state, page: action.payload,
             };
         };
         case 'pokemons/setTotalPages': {
             return {
-                ...state, totalPages: state.totalPages = action.pyaload,
+                ...state, totalPages: action.payload,
             };
         };
 
 
         case 'filters/setTypes': {
             return {
-                ...state, types: state.types = action.pyaload,
+                ...state, types: action.payload,
             };
         };
         case 'filters/setFilters': {
             return {
-                ...state, filters: state.filters = action.pyaload,
+                ...state, filters:  action.payload,
             };
         };
 
 
         case 'modal/setModal': {
             return {
-                ...state, modal: state.modal = action.pyaload,
+                ...state, modal: action.payload,
             };
         };
-        case 'pokemons/setQtyUpdate': {
+        case 'modal/setQtyUpdate': {
             return {
-                ...state, qtyUpdate: state.qtyUpdate = action.pyaload,
+                ...state, qtyUpdate: action.payload,
             };
         };
-
 
         default:
             return state;

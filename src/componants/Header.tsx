@@ -16,13 +16,12 @@ interface HeaderProps {
 }
 
 const Header = ({title}: HeaderProps) => {
-
     const dispatch = useDispatch();
 
     const pokemons = useSelector(getPokemons)
     const limit = useSelector(getLimit)
     const qty = useSelector(getQty)
-    const modal = useSelector(getModal)
+    // const modal = useSelector(getModal)
 
     const updateLimit = (value: React.SetStateAction<number>) => {
         if (value === -1) {
@@ -52,8 +51,9 @@ const Header = ({title}: HeaderProps) => {
                 {title}{qty}
             </h1>
             <MyModal
-                visible={modal}
-                setVisible={() => dispatch(setModal(false))}>
+                // visible={modal}
+                // setVisible={() => dispatch(setModal(false))}
+            >
                 <FormQtyPok />
             </MyModal>
             <MyButton

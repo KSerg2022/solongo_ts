@@ -31,12 +31,6 @@ export const Pokemon = () => {
         dispatch(addCardsPokemon(currentData))
     }, [currentData])
 
-    console.log('currentData --', currentData)
-    console.log('cardsPokemon --', cardsPokemon)
-    console.log('limit --', limit)
-    console.log('page --', page)
-    console.log('start-end--', start, end)
-
     return (
     // @ts-ignore
         <div className="row d-flex justify-content-center mb-3">
