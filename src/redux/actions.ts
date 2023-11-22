@@ -18,16 +18,17 @@ export enum allActions {
     SET_MODAL = 'SET_MODAL',
     SET_QTY_UPDATE = 'SET_QTY_UPDATE'
 }
-export const fetchPokemons = (pokemon: IPokemons | []) => {
+
+export const fetchPokemons = (isloading: boolean) => {
     return {
-        type: allActions.ADD_POKEMONS,
-        payload: pokemon
+        type: allActions.FETCH_POKEMONS,
+        payload: isloading
     }
 }
-export const fetchPokemonsError = (pokemon: IPokemons | []) => {
+export const fetchPokemonsError = (error: string | null) => {
     return {
-        type: allActions.ADD_POKEMONS,
-        payload: pokemon
+        type: allActions.FETCH_POKEMONS_ERROR,
+        payload: error
     }
 }
 

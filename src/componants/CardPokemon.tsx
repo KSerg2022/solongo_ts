@@ -21,7 +21,6 @@ const CardPokemon = ({sprites, id, name, types}: CardPokemonProps) => {
     });
 
     return (
-        // <div ref={ref} className="col- pokemon">
         <div ref={ref} className={inView ? "col- pokemon" : "col- pokemon__sceleton"}>
             {
                 inView

@@ -5,20 +5,16 @@ import Filters from "./Filters";
 import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
 
-import {useDispatch, useSelector} from "react-redux"
-import {getCurrentData, getLimit, getPokemons, getTotalPages} from "../redux/selectors"
+import {useDispatch} from "react-redux"
 import {setCurrentData, setPage, setTotalPages} from "../redux/actions"
-import { useTypesSelector } from "../hooks/useTypedSelector";
+import {useTypesSelector} from "../hooks/useTypedSelector";
 
 
+// @ts-ignore
 export const Pokemons: React.FC = () => {
     const dispatch = useDispatch();
-
-    // const pokemons = useSelector(getPokemons)
-    const {pokemons, currentData, totalPages, limit} = useTypesSelector(state => state.pokemons)
-    // const currentData = useSelector(getCurrentData)
-    // const totalPages = useSelector(getTotalPages)
-    // const limit = useSelector(getLimit)
+    const {pokemons, currentData, totalPages, limit, isLoading, error} =
+        useTypesSelector(state => state.pokemons)
 
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)
@@ -32,7 +28,7 @@ export const Pokemons: React.FC = () => {
             ?
             dispatch(setCurrentData(sortedPokemons(pokemons)))
             :
-           dispatch(setCurrentData([...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))));
+            dispatch(setCurrentData([...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))));
     }
 
     function everyType(types: string | any[], filter: any[]) {
@@ -52,11 +48,11 @@ export const Pokemons: React.FC = () => {
                 <Filters
                     onFilter={filteredPokemons}/>
 
-                {totalPages && <Pagination />}
+                {totalPages && <Pagination/>}
                 <div className="container-fluid">
-                    <Pokemon />
+                    <Pokemon/>
                 </div>
-                {totalPages && <Pagination  />}
+                {totalPages && <Pagination/>}
 
             </div>
         )

@@ -1,25 +1,22 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
+import axios from "axios";
 
 import './css/main.css'
 import Header from "./componants/Header";
 import Pokemons from "./componants/Pokemons";
 import {IPokemons} from "./model";
-import {getPokemons, getQty} from "./redux/selectors"
-import {addPokemons, setPokemons} from "./redux/actions"
-import axios from "axios";
-import { useTypesSelector } from './hooks/useTypedSelector';
+import {addPokemons, setPokemons, fetchPokemons, fetchPokemonsError} from "./redux/actions"
+import {useTypesSelector} from './hooks/useTypedSelector';
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
 
 export const App = () => {
     const dispatch = useDispatch();
-    const {pokemons, qty} = useTypesSelector(state => state.pokemons)
-
-    // const pokemons = useSelector(getPokemons)
-    // const qty = useSelector(getQty)
+    const {pokemons, qty, isLoading, error} = useTypesSelector(state => state.pokemons)
 
     useEffect(() => {
+        dispatch(fetchPokemons(true))
         if (pokemons.length > qty) {
             dispatch(setPokemons([...pokemons].slice(0, qty)))
         } else {
@@ -33,10 +30,27 @@ export const App = () => {
                         types: res.data.types.map((e: { type: { name: string; }; }) => e.type.name)
                     }
                     dispatch(addPokemons(data))
-                })
+                }).catch(() => {
+                        dispatch(fetchPokemonsError('Произошла ошибка!!!!'));
+                    }
+                )
             }
         }
+        dispatch(fetchPokemons(false))
     }, [qty])
+
+    if (isLoading) {
+        return (
+            <div className="filters">
+                <h2>Loading....</h2>
+            </div>)
+    }
+    if (error) {
+        return (
+            <div className="filters">
+                <h2>{error}</h2>
+            </div>)
+    }
 
     return (
         <div>

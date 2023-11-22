@@ -1,7 +1,6 @@
 import React from 'react';
 
 
-
 export const PokTypes = ({types}: any) => {
     return (
         <ul className="typesList">

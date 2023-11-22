@@ -26,12 +26,12 @@ export interface initState {
 
 interface fetchPokemonsAction {
     type: allActions.FETCH_POKEMONS
+    payload: boolean
 }
 interface fetchPokemonsErrorAction {
     type: allActions.FETCH_POKEMONS_ERROR
     payload: string
 }
-
 
 interface addPokemonsAction {
     type: allActions.ADD_POKEMONS

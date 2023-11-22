@@ -30,18 +30,14 @@ export const pokemonsReducer = (state = initialState, action: allTypesActions): 
 
     switch (action.type) {
         case allActions.FETCH_POKEMONS:
-            return {...state, isLoading: true, error: null};
+            return {...state, isLoading: action.payload};
         case allActions.FETCH_POKEMONS_ERROR:
-            return {...state, isLoading: false, error: action.payload};
+            return {...state, error: action.payload};
 
         case allActions.ADD_POKEMONS:
-            return {
-                ...state,
-                pokemons: [...state.pokemons, action.payload],
-                isLoading: false
-            };
+            return {...state, pokemons: [...state.pokemons, action.payload]};
         case allActions.SET_POKEMONS:
-            return {...state, pokemons: action.payload,};
+            return {...state, pokemons: action.payload, isLoading: false};
         case allActions.SET_QTY:
             return {...state, qty: action.payload};
         case allActions.SET_LIMIT:
