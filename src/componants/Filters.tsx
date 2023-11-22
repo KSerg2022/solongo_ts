@@ -5,6 +5,7 @@ import {IPokemons} from "../model";
 import {useDispatch, useSelector} from "react-redux"
 import {getFilters, getPokemons, getTypes} from "../redux/selectors"
 import {setFilters, setTypes} from "../redux/actions"
+import { useTypesSelector } from '../hooks/useTypedSelector';
 
 function getListTypes(data: IPokemons[]): string[] {
     let types = new Set<string>()
@@ -31,11 +32,11 @@ interface FiltersProps {
 }
 
 export const Filters = ({onFilter}: FiltersProps) => {
-
     const dispatch = useDispatch();
-    const pokemons = useSelector(getPokemons)
-    const types = useSelector(getTypes)
-    const filters = useSelector(getFilters)
+    const {pokemons, types, filters} = useTypesSelector(state => state.pokemons)
+    // const pokemons = useSelector(getPokemons)
+    // const types = useSelector(getTypes)
+    // const filters = useSelector(getFilters)
 
     useEffect(() => {
         dispatch(setTypes(getListTypes(pokemons)))

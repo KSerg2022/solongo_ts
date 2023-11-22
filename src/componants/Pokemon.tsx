@@ -5,17 +5,20 @@ import CardPokemon from "./CardPokemon";
 import {useDispatch, useSelector} from "react-redux"
 import {getCardsPokemon, getCurrentData, getEnd, getLimit, getPage, getStart} from "../redux/selectors"
 import {addCardsPokemon, setEnd, setStart} from "../redux/actions"
+import { useTypesSelector } from '../hooks/useTypedSelector';
 
 
 export const Pokemon = () => {
     const dispatch = useDispatch();
+    const {currentData, cardsPokemon, limit, page, start, end} =
+        useTypesSelector(state => state.pokemons)
 
-    const currentData = useSelector(getCurrentData)
-    const cardsPokemon = useSelector(getCardsPokemon)
-    const limit = useSelector(getLimit)
-    const page = useSelector(getPage)
-    const start = useSelector(getStart)
-    const end = useSelector(getEnd)
+    // const currentData = useSelector(getCurrentData)
+    // const cardsPokemon = useSelector(getCardsPokemon)
+    // const limit = useSelector(getLimit)
+    // const page = useSelector(getPage)
+    // const start = useSelector(getStart)
+    // const end = useSelector(getEnd)
 
 
     useEffect(() => {

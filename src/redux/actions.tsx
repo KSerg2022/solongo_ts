@@ -1,6 +1,8 @@
 import {IPokemons} from '../model'
 
 export enum allActions {
+    FETCH_POKEMONS = 'FETCH_POKEMONS',
+    FETCH_POKEMONS_ERROR = 'FETCH_POKEMONS_ERROR',
     ADD_POKEMONS = 'ADD_POKEMONS',
     SET_POKEMONS = 'SET_POKEMONS',
     SET_QTY = 'SET_QTY',
@@ -16,6 +18,19 @@ export enum allActions {
     SET_MODAL = 'SET_MODAL',
     SET_QTY_UPDATE = 'SET_QTY_UPDATE'
 }
+export const fetchPokemons = (pokemon: IPokemons | []) => {
+    return {
+        type: allActions.ADD_POKEMONS,
+        payload: pokemon
+    }
+}
+export const fetchPokemonsError = (pokemon: IPokemons | []) => {
+    return {
+        type: allActions.ADD_POKEMONS,
+        payload: pokemon
+    }
+}
+
 
 export const addPokemons = (pokemon: IPokemons | []) => {
     return {

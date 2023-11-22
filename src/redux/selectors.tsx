@@ -1,7 +1,11 @@
-
+import { useTypesSelector } from '../hooks/useTypedSelector'
 import {IPokemons} from '../model'
 
 export const getPokemons = (state: { pokemons: IPokemons[] }) => state.pokemons
+
+
+
+
 export const getQty = (state: { qty: number }) => state.qty
 export const getLimit = (state: { limit: number }) => state.limit
 export const getCurrentData = (state: {currentData: IPokemons[]}) => state.currentData

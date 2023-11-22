@@ -9,6 +9,7 @@ import {useSelector} from "react-redux"
 import { useDispatch } from "react-redux";
 import {getLimit, getQty, getPokemons} from "../redux/selectors"
 import {setLimit, setModal} from "../redux/actions"
+import { useTypesSelector } from '../hooks/useTypedSelector';
 
 
 interface HeaderProps {
@@ -17,9 +18,11 @@ interface HeaderProps {
 
 const Header = ({title}: HeaderProps) => {
     const dispatch = useDispatch();
-    const pokemons = useSelector(getPokemons)
-    const limit = useSelector(getLimit)
-    const qty = useSelector(getQty)
+        const {pokemons, limit, qty} = useTypesSelector(state => state.pokemons)
+
+    // const pokemons = useSelector(getPokemons)
+    // const limit = useSelector(getLimit)
+    // const qty = useSelector(getQty)
 
     const updateLimit = (value: React.SetStateAction<number>) => {
         if (value === -1) {

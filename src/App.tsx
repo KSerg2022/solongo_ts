@@ -8,13 +8,16 @@ import {IPokemons} from "./model";
 import {getPokemons, getQty} from "./redux/selectors"
 import {addPokemons, setPokemons} from "./redux/actions"
 import axios from "axios";
+import { useTypesSelector } from './hooks/useTypedSelector';
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
 
 export const App = () => {
     const dispatch = useDispatch();
-    const pokemons = useSelector(getPokemons)
-    const qty = useSelector(getQty)
+    const {pokemons, qty} = useTypesSelector(state => state.pokemons)
+
+    // const pokemons = useSelector(getPokemons)
+    // const qty = useSelector(getQty)
 
     useEffect(() => {
         if (pokemons.length > qty) {

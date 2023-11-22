@@ -8,15 +8,17 @@ import {Pagination} from "./UI/MyPagination/Pagination";
 import {useDispatch, useSelector} from "react-redux"
 import {getCurrentData, getLimit, getPokemons, getTotalPages} from "../redux/selectors"
 import {setCurrentData, setPage, setTotalPages} from "../redux/actions"
+import { useTypesSelector } from "../hooks/useTypedSelector";
 
 
-export const Pokemons = () => {
+export const Pokemons: React.FC = () => {
     const dispatch = useDispatch();
 
-    const pokemons = useSelector(getPokemons)
-    const currentData = useSelector(getCurrentData)
-    const totalPages = useSelector(getTotalPages)
-    const limit = useSelector(getLimit)
+    // const pokemons = useSelector(getPokemons)
+    const {pokemons, currentData, totalPages, limit} = useTypesSelector(state => state.pokemons)
+    // const currentData = useSelector(getCurrentData)
+    // const totalPages = useSelector(getTotalPages)
+    // const limit = useSelector(getLimit)
 
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)

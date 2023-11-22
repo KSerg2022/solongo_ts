@@ -5,12 +5,14 @@ import MyButton from "./UI/MyButton/MyButton";
 import {useDispatch, useSelector} from "react-redux"
 import {getQtyUpdate} from "../redux/selectors"
 import {setModal, setQty, setQtyUpdate} from "../redux/actions"
+import { useTypesSelector } from '../hooks/useTypedSelector';
 
 
 const FormQtyPok = () => {
-
     const dispatch = useDispatch();
-    const qtyUpdate = useSelector(getQtyUpdate)
+    const {qtyUpdate} = useTypesSelector(state => state.pokemons)
+
+    // const qtyUpdate = useSelector(getQtyUpdate)
 
     const update = (e: React.FormEvent) => {
         e.preventDefault()
