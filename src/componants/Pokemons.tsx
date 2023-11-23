@@ -10,7 +10,6 @@ import {setCurrentData, setPage, setTotalPages} from "../redux/pokemons/actionsP
 import {useTypesSelector} from "../hooks/useTypedSelector";
 
 
-// @ts-ignore
 export const Pokemons: React.FC = () => {
     const dispatch = useDispatch();
     const {pokemons, currentData, totalPages, limit} =
