@@ -3,7 +3,7 @@ import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
 
 import {useDispatch} from "react-redux"
-import {setFilters, setTypes} from "../redux/actions"
+import {setFilters, setTypes} from "../redux/pokemons/actionsPokemons"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 function getListTypes(data: IPokemons[]): string[] {

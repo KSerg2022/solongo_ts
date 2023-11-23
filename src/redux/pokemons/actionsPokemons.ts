@@ -1,4 +1,4 @@
-import {IPokemons} from '../model'
+import {IPokemons} from '../../model'
 
 export enum allActions {
     FETCH_POKEMONS = 'FETCH_POKEMONS',
@@ -15,8 +15,6 @@ export enum allActions {
     SET_TOTAL_PAGES = 'SET_TOTAL_PAGES',
     SET_TYPES = 'SET_TYPES',
     SET_FILTERS = 'SET_FILTERS',
-    SET_MODAL = 'SET_MODAL',
-    SET_QTY_UPDATE = 'SET_QTY_UPDATE'
 }
 
 export const fetchPokemons = (isloading: boolean) => {
@@ -106,18 +104,5 @@ export const setFilters = (filters: { [key: string]: boolean }) => {
     return {
         type: allActions.SET_FILTERS,
         payload: filters
-    }
-}
-
-export const setModal = (modal: boolean) => {
-    return {
-        type: allActions.SET_MODAL,
-        payload: modal
-    }
-}
-export const setQtyUpdate = (qtyUpdate: any) => {
-    return {
-        type: allActions.SET_QTY_UPDATE,
-        payload: qtyUpdate
     }
 }

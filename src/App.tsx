@@ -6,7 +6,7 @@ import './css/main.css'
 import Header from "./componants/Header";
 import Pokemons from "./componants/Pokemons";
 import {IPokemons} from "./model";
-import {addPokemons, setPokemons, fetchPokemons, fetchPokemonsError} from "./redux/actions"
+import {addPokemons, setPokemons, fetchPokemons, fetchPokemonsError} from "./redux/pokemons/actionsPokemons"
 import {useTypesSelector} from './hooks/useTypedSelector';
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/"

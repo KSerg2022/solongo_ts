@@ -1,6 +1,6 @@
-import {IPokemons} from "../model";
+import {IPokemons} from "../../model";
 
-import {allActions} from "./actions"
+import {allActions} from "./actionsPokemons"
 
 export interface initState {
     pokemons: IPokemons[],
@@ -19,9 +19,6 @@ export interface initState {
 
     types: string[],
     filters: {},
-
-    modal: boolean,
-    qtyUpdate: number,
 }
 
 interface fetchPokemonsAction {
@@ -85,15 +82,6 @@ interface setFiltersAction {
     payload : {}
 }
 
-interface setModalAction {
-    type: allActions.SET_MODAL
-    payload : boolean
-}
-interface setQtyUpdateAction {
-    type: allActions.SET_QTY_UPDATE
-    payload : number
-}
-
 export type allTypesActions =
     fetchPokemonsAction |
     fetchPokemonsErrorAction |
@@ -108,6 +96,4 @@ export type allTypesActions =
     setPageAction |
     setTotalPageAction |
     setTypesAction |
-    setFiltersAction |
-    setModalAction |
-    setQtyUpdateAction
+    setFiltersAction

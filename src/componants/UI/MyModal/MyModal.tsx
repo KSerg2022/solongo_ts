@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./MyModal.module.css";
 
 import {useDispatch} from "react-redux"
-import {setModal} from "../../../redux/actions"
+import {setModal} from "../../../redux/modalWindow/actionsModal"
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
 
 interface MyModalProps {
@@ -11,7 +11,7 @@ interface MyModalProps {
 
 const MyModal = ({children}: MyModalProps) => {
     const dispatch = useDispatch();
-    const {modal} = useTypesSelector(state => state.pokemons)
+    const {modal} = useTypesSelector(state => state.modal)
 
     const rootClasses = [classes.myModal]
     if (modal) {

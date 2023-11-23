@@ -1,6 +1,16 @@
 import {createStore} from "redux"
-import {rootReducer} from './reducer'
-import { devToolsEnhancer } from "@redux-devtools/extension"
+import {devToolsEnhancer} from "@redux-devtools/extension"
+import {combineReducers} from "redux"
+import {pokemonsReducer} from "./pokemons/reducerPokemons"
+import {modalReducer} from "./modalWindow/reducerModal"
+
+
+export const rootReducer = combineReducers({
+    pokemons: pokemonsReducer,
+    modal: modalReducer
+})
+
+export type RootState = ReturnType<typeof rootReducer>
 
 
 const enhancer = devToolsEnhancer()

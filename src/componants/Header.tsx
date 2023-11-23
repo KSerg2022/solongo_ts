@@ -6,7 +6,8 @@ import FormQtyPok from "./FormQtyPok";
 import {MySelect} from "./UI/MySelect/MySelect";
 
 import {useDispatch} from "react-redux"
-import {setLimit, setModal} from "../redux/actions"
+import {setLimit} from "../redux/pokemons/actionsPokemons"
+import {setModal} from "../redux/modalWindow/actionsModal"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 

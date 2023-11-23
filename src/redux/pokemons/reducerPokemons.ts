@@ -1,6 +1,5 @@
-import {combineReducers} from "redux"
-import {initState, allTypesActions} from "./types"
-import {allActions} from "./actions"
+import {allTypesActions, initState} from "./typesPokemons"
+import {allActions} from "./actionsPokemons"
 
 export const initialState: initState = {
     pokemons: [],
@@ -19,9 +18,6 @@ export const initialState: initState = {
 
     types: [],
     filters: {},
-
-    modal: false,
-    qtyUpdate: 16,
 }
 
 
@@ -62,19 +58,8 @@ export const pokemonsReducer = (state = initialState, action: allTypesActions): 
         case allActions.SET_FILTERS:
             return {...state, filters: action.payload};
 
-        case allActions.SET_MODAL:
-            return {...state, modal: action.payload};
-        case allActions.SET_QTY_UPDATE:
-            return {...state, qtyUpdate: action.payload};
-
         default:
             return state;
     }
 }
 
-
-export const rootReducer = combineReducers({
-    pokemons: pokemonsReducer,
-})
-
-export type RootState = ReturnType<typeof rootReducer>

@@ -3,13 +3,14 @@ import MyInput from "./UI/MyInput/MyInput";
 import MyButton from "./UI/MyButton/MyButton";
 
 import {useDispatch} from "react-redux"
-import {setModal, setQty, setQtyUpdate} from "../redux/actions"
+import {setQty} from "../redux/pokemons/actionsPokemons"
+import {setModal, setQtyUpdate} from "../redux/modalWindow/actionsModal"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 
 const FormQtyPok = () => {
     const dispatch = useDispatch();
-    const {qtyUpdate} = useTypesSelector(state => state.pokemons)
+    const {qtyUpdate} = useTypesSelector(state => state.modal)
 
     const update = (e: React.FormEvent) => {
         e.preventDefault()

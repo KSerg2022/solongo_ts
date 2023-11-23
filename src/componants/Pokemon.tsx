@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import CardPokemon from "./CardPokemon";
 
 import {useDispatch} from "react-redux"
-import {addCardsPokemon, setEnd, setStart} from "../redux/actions"
+import {addCardsPokemon, setEnd, setStart} from "../redux/pokemons/actionsPokemons"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 

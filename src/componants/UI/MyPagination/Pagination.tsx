@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
-import {setPage,} from "../../../redux/actions"
+import {setPage,} from "../../../redux/pokemons/actionsPokemons"
 
 const getPagesArray = (totalPages: number) => {
         let result = []
