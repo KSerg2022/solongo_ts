@@ -1,5 +1,3 @@
-import {IPokemons} from '../../model'
-
 export enum filtersActions {
     SET_TYPES = 'SET_TYPES',
     SET_FILTERS = 'SET_FILTERS',

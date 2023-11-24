@@ -1,7 +1,7 @@
-import {allTypesActions, initState} from "./typesPokemons"
-import {allActions} from "./actionsPokemons"
+import {typesPokemonsActions, initPokemonsState} from "./typesPokemons"
+import {pokemonsActions} from "./actionsPokemons"
 
-export const initialState: initState = {
+export const initialPokemonState: initPokemonsState = {
     pokemons: [],
     qty: 16,
     limit: 10,
@@ -15,48 +15,41 @@ export const initialState: initState = {
 
     page: 1,
     totalPages: 1,
-
-    // types: [],
-    // filters: {},
 }
 
 
 
-export const pokemonsReducer = (state = initialState, action: allTypesActions): initState => {
+export const pokemonsReducer = (state = initialPokemonState,
+                                action: typesPokemonsActions): initPokemonsState => {
 
     switch (action.type) {
-        case allActions.FETCH_POKEMONS:
+        case pokemonsActions.FETCH_POKEMONS:
             return {...state, isLoading: action.payload};
-        case allActions.FETCH_POKEMONS_ERROR:
+        case pokemonsActions.FETCH_POKEMONS_ERROR:
             return {...state, error: action.payload};
 
-        case allActions.ADD_POKEMONS:
+        case pokemonsActions.ADD_POKEMONS:
             return {...state, pokemons: [...state.pokemons, action.payload]};
-        case allActions.SET_POKEMONS:
+        case pokemonsActions.SET_POKEMONS:
             return {...state, pokemons: action.payload, isLoading: false};
-        case allActions.SET_QTY:
+        case pokemonsActions.SET_QTY:
             return {...state, qty: action.payload};
-        case allActions.SET_LIMIT:
+        case pokemonsActions.SET_LIMIT:
             return {...state, limit: action.payload};
 
-        case allActions.SET_CURRENT_DATA:
+        case pokemonsActions.SET_CURRENT_DATA:
             return {...state, currentData: action.payload};
-        case allActions.ADD_CARDS_POKEMON:
+        case pokemonsActions.ADD_CARDS_POKEMON:
             return {...state, cardsPokemon: action.payload};
-        case allActions.SET_START:
+        case pokemonsActions.SET_START:
             return {...state, start: action.payload};
-        case allActions.SET_END:
+        case pokemonsActions.SET_END:
             return {...state, end: action.payload};
 
-        case allActions.SET_PAGE:
+        case pokemonsActions.SET_PAGE:
             return {...state, page: action.payload};
-        case allActions.SET_TOTAL_PAGES:
+        case pokemonsActions.SET_TOTAL_PAGES:
             return {...state, totalPages: action.payload};
-
-        // case allActions.SET_TYPES:
-        //     return {...state, types: action.payload};
-        // case allActions.SET_FILTERS:
-        //     return {...state, filters: action.payload};
 
         default:
             return state;

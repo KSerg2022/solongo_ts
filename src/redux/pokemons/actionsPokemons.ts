@@ -1,6 +1,6 @@
 import {IPokemons} from '../../model'
 
-export enum allActions {
+export enum pokemonsActions {
     FETCH_POKEMONS = 'FETCH_POKEMONS',
     FETCH_POKEMONS_ERROR = 'FETCH_POKEMONS_ERROR',
     ADD_POKEMONS = 'ADD_POKEMONS',
@@ -13,19 +13,18 @@ export enum allActions {
     SET_END = 'SET_END',
     SET_PAGE = 'SET_PAGE',
     SET_TOTAL_PAGES = 'SET_TOTAL_PAGES',
-    // SET_TYPES = 'SET_TYPES',
-    // SET_FILTERS = 'SET_FILTERS',
+
 }
 
 export const fetchPokemons = (isloading: boolean) => {
     return {
-        type: allActions.FETCH_POKEMONS,
+        type: pokemonsActions.FETCH_POKEMONS,
         payload: isloading
     }
 }
 export const fetchPokemonsError = (error: string | null) => {
     return {
-        type: allActions.FETCH_POKEMONS_ERROR,
+        type: pokemonsActions.FETCH_POKEMONS_ERROR,
         payload: error
     }
 }
@@ -33,76 +32,64 @@ export const fetchPokemonsError = (error: string | null) => {
 
 export const addPokemons = (pokemon: IPokemons | []) => {
     return {
-        type: allActions.ADD_POKEMONS,
+        type: pokemonsActions.ADD_POKEMONS,
         payload: pokemon
     }
 }
 export const setPokemons = (pokemons: IPokemons[]) => {
     return {
-        type: allActions.SET_POKEMONS,
+        type: pokemonsActions.SET_POKEMONS,
         payload: pokemons
     }
 }
 export const setQty = (qty: number) => {
     return {
-        type: allActions.SET_QTY,
+        type: pokemonsActions.SET_QTY,
         payload: qty
     }
 }
 export const setLimit = (limit: number) => {
     return {
-        type: allActions.SET_LIMIT,
+        type: pokemonsActions.SET_LIMIT,
         payload: limit
     }
 }
 export const setCurrentData = (currentData: IPokemons[]) => {
     return {
-        type: allActions.SET_CURRENT_DATA,
+        type: pokemonsActions.SET_CURRENT_DATA,
         payload: currentData
     }
 }
 
 export const addCardsPokemon = (cardsPokemon: IPokemons[]) => {
     return {
-        type: allActions.ADD_CARDS_POKEMON,
+        type: pokemonsActions.ADD_CARDS_POKEMON,
         payload: cardsPokemon
     }
 }
 export const setStart = (start: number) => {
     return {
-        type: allActions.SET_START,
+        type: pokemonsActions.SET_START,
         payload: start
     }
 }
 export const setEnd = (end: number) => {
     return {
-        type: allActions.SET_END,
+        type: pokemonsActions.SET_END,
         payload: end
     }
 }
 
 export const setPage = (page: number) => {
     return {
-        type: allActions.SET_PAGE,
+        type: pokemonsActions.SET_PAGE,
         payload: page
     }
 }
 export const setTotalPages = (totalPages: number) => {
     return {
-        type: allActions.SET_TOTAL_PAGES,
+        type: pokemonsActions.SET_TOTAL_PAGES,
         payload: totalPages
     }
 }
 
-// export const setTypes = (types: string[]) => {
-//     return {
-//         type: allActions.SET_TYPES,
-//         payload: types
-//     }
-// }
-// export const setFilters = (filters: { [key: string]: boolean }) => {
-//     return {
-//         type: allActions.SET_FILTERS,
-//         payload: filters
-//     }
-// }
