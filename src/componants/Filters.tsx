@@ -48,7 +48,6 @@ export const Filters = ({onFilter}: FiltersProps) => {
     function currentFilter(): void {
         let filterList: string[] = []
         for (let type of types) {
-            // @ts-ignore
             if (filters[type]) {
                 filterList.push(type)
             }
@@ -62,14 +61,13 @@ export const Filters = ({onFilter}: FiltersProps) => {
                 <div className="row justify-content-md-center">
                     {types?.map((value, i) => (
                         <MyCheckBox
+                            status={filters[value]}
                             key={i}
                             type="checkbox"
                             id={value}
                             name={value}
-                            onChange={(e: { target: { name: string | number; }; }) => dispatch(setFilters({
-                                ...filters,
-                                // @ts-ignore
-                                [e.target.name]: !filters[e.target.name]
+                            onChange={(e: { target: { name: string }; }) =>
+                                dispatch(setFilters({...filters, [e.target.name]: !filters[e.target.name]
                             }))}
                         />
                     ))}

@@ -4,7 +4,7 @@ import {filtersActions} from "./actionsFilters"
 
 export interface initFiltersState {
     types: string[],
-    filters: {},
+    filters: {[key: string]: boolean},
 }
 
 interface setTypesAction {
