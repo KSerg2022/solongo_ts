@@ -1,6 +1,6 @@
 import {IPokemons} from "../../model";
 
-import {allModalActions} from "./actionsModal"
+import {modalActions} from "./actionsModal"
 
 export interface initStateModal {
     modal: boolean,
@@ -9,14 +9,14 @@ export interface initStateModal {
 
 
 interface setModalAction {
-    type: allModalActions.SET_MODAL
+    type: modalActions.SET_MODAL
     payload : boolean
 }
 interface setQtyUpdateAction {
-    type: allModalActions.SET_QTY_UPDATE
+    type: modalActions.SET_QTY_UPDATE
     payload : number
 }
 
-export type allTypesModalActions =
+export type typesModalActions =
     setModalAction |
     setQtyUpdateAction

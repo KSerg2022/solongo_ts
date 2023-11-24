@@ -1,19 +1,19 @@
-import {allTypesModalActions, initStateModal} from "./typesModal"
-import {allModalActions} from "./actionsModal"
+import {typesModalActions, initStateModal} from "./typesModal"
+import {modalActions} from "./actionsModal"
 
-export const initialState: initStateModal = {
+export const initialModalState: initStateModal = {
     modal: false,
     qtyUpdate: 16,
 }
 
 
-export const modalReducer = (state = initialState,
-                             action: allTypesModalActions): initStateModal => {
+export const modalReducer = (state = initialModalState,
+                             action: typesModalActions): initStateModal => {
 
     switch (action.type) {
-        case allModalActions.SET_MODAL:
+        case modalActions.SET_MODAL:
             return {...state, modal: action.payload};
-        case allModalActions.SET_QTY_UPDATE:
+        case modalActions.SET_QTY_UPDATE:
             return {...state, qtyUpdate: action.payload};
 
         default:
