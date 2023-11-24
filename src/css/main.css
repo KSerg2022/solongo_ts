@@ -111,7 +111,7 @@ h5 {
 .page {
     padding: 10px;
     margin: 2px;
-    border: 1px solid teal;
+    border: 1px solid var(--background-color-field);;
     border-radius: 5px;
     cursor: pointer;
 }

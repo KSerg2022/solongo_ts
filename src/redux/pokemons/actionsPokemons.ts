@@ -13,8 +13,8 @@ export enum allActions {
     SET_END = 'SET_END',
     SET_PAGE = 'SET_PAGE',
     SET_TOTAL_PAGES = 'SET_TOTAL_PAGES',
-    SET_TYPES = 'SET_TYPES',
-    SET_FILTERS = 'SET_FILTERS',
+    // SET_TYPES = 'SET_TYPES',
+    // SET_FILTERS = 'SET_FILTERS',
 }
 
 export const fetchPokemons = (isloading: boolean) => {
@@ -94,15 +94,15 @@ export const setTotalPages = (totalPages: number) => {
     }
 }
 
-export const setTypes = (types: string[]) => {
-    return {
-        type: allActions.SET_TYPES,
-        payload: types
-    }
-}
-export const setFilters = (filters: { [key: string]: boolean }) => {
-    return {
-        type: allActions.SET_FILTERS,
-        payload: filters
-    }
-}
+// export const setTypes = (types: string[]) => {
+//     return {
+//         type: allActions.SET_TYPES,
+//         payload: types
+//     }
+// }
+// export const setFilters = (filters: { [key: string]: boolean }) => {
+//     return {
+//         type: allActions.SET_FILTERS,
+//         payload: filters
+//     }
+// }

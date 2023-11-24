@@ -3,7 +3,7 @@ import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
 
 import {useDispatch} from "react-redux"
-import {setFilters, setTypes} from "../redux/pokemons/actionsPokemons"
+import {setFilters, setTypes} from "../redux/filters/actionsFilters"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 function getListTypes(data: IPokemons[]): string[] {
@@ -32,7 +32,8 @@ interface FiltersProps {
 
 export const Filters = ({onFilter}: FiltersProps) => {
     const dispatch = useDispatch();
-    const {pokemons, types, filters} = useTypesSelector(state => state.pokemons)
+    const {pokemons} = useTypesSelector(state => state.pokemons)
+    const {types, filters} = useTypesSelector(state => state.filters)
 
     useEffect(() => {
         dispatch(setTypes(getListTypes(pokemons)))

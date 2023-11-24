@@ -17,8 +17,8 @@ export interface initState {
     page: number,
     totalPages: number,
 
-    types: string[],
-    filters: {},
+    // types: string[],
+    // filters: {},
 }
 
 interface fetchPokemonsAction {
@@ -73,14 +73,14 @@ interface setTotalPageAction {
     payload : number
 }
 
-interface setTypesAction {
-    type: allActions.SET_TYPES
-    payload : string[]
-}
-interface setFiltersAction {
-    type: allActions.SET_FILTERS
-    payload : {}
-}
+// interface setTypesAction {
+//     type: allActions.SET_TYPES
+//     payload : string[]
+// }
+// interface setFiltersAction {
+//     type: allActions.SET_FILTERS
+//     payload : {}
+// }
 
 export type allTypesActions =
     fetchPokemonsAction |
@@ -94,6 +94,6 @@ export type allTypesActions =
     setStartAction |
     setEndAction |
     setPageAction |
-    setTotalPageAction |
-    setTypesAction |
-    setFiltersAction
+    setTotalPageAction
+    // setTypesAction |
+    // setFiltersAction

@@ -16,8 +16,8 @@ export const initialState: initState = {
     page: 1,
     totalPages: 1,
 
-    types: [],
-    filters: {},
+    // types: [],
+    // filters: {},
 }
 
 
@@ -53,10 +53,10 @@ export const pokemonsReducer = (state = initialState, action: allTypesActions): 
         case allActions.SET_TOTAL_PAGES:
             return {...state, totalPages: action.payload};
 
-        case allActions.SET_TYPES:
-            return {...state, types: action.payload};
-        case allActions.SET_FILTERS:
-            return {...state, filters: action.payload};
+        // case allActions.SET_TYPES:
+        //     return {...state, types: action.payload};
+        // case allActions.SET_FILTERS:
+        //     return {...state, filters: action.payload};
 
         default:
             return state;
