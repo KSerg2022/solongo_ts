@@ -1,22 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {useDispatch} from "react-redux"
 import {setFilters} from "../redux/filters/actionsFilters"
 import {useTypesSelector} from '../hooks/useTypedSelector';
+import {MyLi} from "./UI/MiLi/MyLi"
 
 export const PokTypes = ({types}: any) => {
-        const dispatch = useDispatch();
-        const {filters} = useTypesSelector(state => state.filters)
+    const dispatch = useDispatch();
+    const {filters} = useTypesSelector(state => state.filters)
 
 
     return (
         <ul className="typesList">
-            {types.map((type: string) =>
-                <li key={type}
-                    style={{cursor: 'pointer'}}
-                    onClick={() => dispatch(setFilters({...filters, [type]: !filters[type]}))}                >
-                    <span className="listItem">{type}</span>
-                </li>
+            {types.map((type: string, i: number) =>
+                <MyLi key={i} type={type}/>
             )}
         </ul>)
 };
