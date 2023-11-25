@@ -7,21 +7,25 @@ import {setFilters, setTypes} from "../redux/filters/actionsFilters"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 
 function getListTypes(data: IPokemons[]): string[] {
-    let types = new Set<string>()
+    let types: Set<string> = new Set<string>()
     for (let pokemon of data) {
-            for (let type of pokemon.types) {
-                types.add(type)
-            }
+        for (let type of pokemon.types) {
+            types.add(type)
+        }
     }
-    // @ts-ignore
-    return [...types].sort()
+    // return [...types].sort()
+    return [...Array.from(types)].sort()
 }
 
-function getListFilters(data: IPokemons[]) {
-    const types = getListTypes(data)
+function getListFilters(data: IPokemons[], filters: { [key: string]: boolean }) {
+    const types: string[] = getListTypes(data)
     let categories: { [key: string]: boolean } = {}
     for (let type of types) {
-        categories[type] = false
+        if (filters[type]) {
+            categories[type] = true
+        } else {
+            categories[type] = false
+        }
     }
     return categories
 }
@@ -37,7 +41,7 @@ export const Filters = ({onFilter}: FiltersProps) => {
 
     useEffect(() => {
         dispatch(setTypes(getListTypes(pokemons)))
-        dispatch(setFilters(getListFilters(pokemons)))
+        dispatch(setFilters(getListFilters(pokemons, filters)))
     }, [pokemons])
 
     useEffect(() => {
@@ -67,8 +71,9 @@ export const Filters = ({onFilter}: FiltersProps) => {
                             id={value}
                             name={value}
                             onChange={(e: { target: { name: string }; }) =>
-                                dispatch(setFilters({...filters, [e.target.name]: !filters[e.target.name]
-                            }))}
+                                dispatch(setFilters({
+                                    ...filters, [e.target.name]: !filters[e.target.name]
+                                }))}
                         />
                     ))}
                 </div>
