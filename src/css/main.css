@@ -93,11 +93,18 @@ h5 {
     text-align: justify;
 }
 
+.listLi-over {
+    color: #ffffff;
+}
+
 .listItem {
     color: #ffffff;
 }
 
-
+.listItem-active {
+    color: var(--background-color-header);
+    font-weight: 600;
+}
 
 .page__wrapper {
     margin: 5px 0;
