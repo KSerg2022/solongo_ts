@@ -86,6 +86,11 @@ h5 {
     text-align: center;
 }
 
+input[type='checkbox'] {
+    accent-color: var(--background-color-header);
+    color: var(--background-color-header);
+}
+
 .typesList {
     color: var(--background-color-header);
     padding: 0px;
@@ -93,11 +98,18 @@ h5 {
     text-align: justify;
 }
 
+.listLi-over {
+    color: #ffffff;
+}
+
 .listItem {
     color: #ffffff;
 }
 
-
+.listItem-active {
+    color: var(--background-color-header);
+    font-weight: 600;
+}
 
 .page__wrapper {
     margin: 5px 0;
@@ -111,12 +123,12 @@ h5 {
 .page {
     padding: 10px;
     margin: 2px;
-    border: 1px solid teal;
+    border: 1px solid var(--background-color-field);;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .page__current {
-    border: 3px solid orange;
+    border: 3px solid var(--background-color-field);
     font-weight: bold;
 }

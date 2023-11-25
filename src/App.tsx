@@ -1,44 +1,62 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch} from "react-redux"
+import axios from "axios";
 
 import './css/main.css'
 import Header from "./componants/Header";
 import Pokemons from "./componants/Pokemons";
 import {IPokemons} from "./model";
-import {usePokemons} from "./hooks/pokemons"
+import {addPokemons, setPokemons, fetchPokemons, fetchPokemonsError} from "./redux/pokemons/actionsPokemons"
+import {useTypesSelector} from './hooks/useTypedSelector';
 
+const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
 
 export const App = () => {
-    const {pokemons, qty, setQty} = usePokemons()
-    const [limit, setLimit] = useState<number>(10)
+    const dispatch = useDispatch();
+    const {pokemons, qty, isLoading, error} = useTypesSelector(state => state.pokemons)
 
-    const updateLimit = (value: React.SetStateAction<number>) => {
-        if (value === -1) {
-            setLimit(pokemons.length)
+    useEffect(() => {
+        dispatch(fetchPokemons(true))
+        if (pokemons.length > qty) {
+            dispatch(setPokemons([...pokemons].slice(0, qty)))
         } else {
-            setLimit(value)
+            let start: number = pokemons.length + 1
+            for (; start <= qty; start++) {
+                axios.get(baseUrl.concat(String(start))).then((res) => {
+                    let data: IPokemons = {
+                        id: res.data.id,
+                        name: res.data.name,
+                        img_url: res.data.sprites.other.home.front_default,
+                        types: res.data.types.map((e: { type: { name: string; }; }) => e.type.name)
+                    }
+                    dispatch(addPokemons(data))
+                }).catch(() => {
+                        dispatch(fetchPokemonsError('Произошла ошибка!!!!'));
+                    }
+                )
+            }
         }
-    }
+        dispatch(fetchPokemons(false))
+    }, [qty])
 
-    const sortedPokemons = (): IPokemons[] => {
-        return pokemons.sort(function (a: IPokemons, b: IPokemons) {
-            // @ts-ignore
-            return a.id - b.id
-        })
+    if (isLoading) {
+        return (
+            <div className="filters">
+                <h2>Loading....</h2>
+            </div>)
+    }
+    if (error) {
+        return (
+            <div className="filters">
+                <h2>{error}</h2>
+            </div>)
     }
 
     return (
         <div>
-            <Header title="Pokemon's list - "
-                    qty={qty}
-                    setQty={setQty}
-                    limit={limit}
-                    updateLimit={updateLimit}
-            />
+            <Header title="Pokemon's list - "/>
             <main>
-                <Pokemons
-                    limit={limit}
-                    // @ts-ignore
-                    pokemons={sortedPokemons}/>
+                <Pokemons/>
             </main>
         </div>
     );

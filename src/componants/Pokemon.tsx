@@ -1,39 +1,41 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import CardPokemon from "./CardPokemon";
-import {IPokemons} from "../model";
 
-interface PokemonProps {
-    pokemons: IPokemons[]
-    limit: number
-    page: number
-}
+import {useDispatch} from "react-redux"
+import {addCardsPokemon, setEnd, setStart} from "../redux/pokemons/actionsPokemons"
+import {useTypesSelector} from '../hooks/useTypedSelector';
 
-export const Pokemon = ({pokemons, limit, page}: PokemonProps) => {
-    const [cardsPokemon, setCardsPokemon] = useState<IPokemons[]>([])
-    const [start, setStart] = useState<number>(1)
-    const [end, setEnd] = useState<number>(1)
+
+export const Pokemon = () => {
+    const dispatch = useDispatch();
+    const {currentData, cardsPokemon, limit, page, start, end} =
+        useTypesSelector(state => state.pokemons)
 
     useEffect(() => {
         const start = (page - 1) * limit
-        setStart(start);
-        setEnd(start + limit)
+        dispatch(setStart(start))
+        dispatch(setEnd(start + limit))
     }, [limit, page])
 
+
     useEffect(() => {
-        setCardsPokemon(pokemons);
-    }, [pokemons])
+        dispatch(addCardsPokemon(currentData))
+    }, [currentData])
 
     return (
+    // @ts-ignore
         <div className="row d-flex justify-content-center mb-3">
-            {cardsPokemon?.slice(start, end).map(pokemon =>
-                <CardPokemon
-                    key={pokemon.id}
-                    sprites={pokemon.img_url}
-                    id={pokemon.id}
-                    name={pokemon.name}
-                    types={pokemon.types}
-                />
+            {/*// @ts-ignore*/}
+            {cardsPokemon.slice(start, end).map(pokemon =>
+                    <CardPokemon
+                        key={pokemon.id}
+                        sprites={pokemon.img_url}
+                        id={pokemon.id}
+                        name={pokemon.name}
+                        types={pokemon.types}
+                    />
+
             )
             }
         </div>

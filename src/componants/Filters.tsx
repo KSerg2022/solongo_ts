@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
 
+import {useDispatch} from "react-redux"
+import {setFilters, setTypes} from "../redux/filters/actionsFilters"
+import {useTypesSelector} from '../hooks/useTypedSelector';
 
 function getListTypes(data: IPokemons[]): string[] {
     let types = new Set<string>()
     for (let pokemon of data) {
-        for (let type of pokemon.types) {
-            types.add(type)
-        }
+            for (let type of pokemon.types) {
+                types.add(type)
+            }
     }
     // @ts-ignore
     return [...types].sort()
@@ -24,18 +27,17 @@ function getListFilters(data: IPokemons[]) {
 }
 
 interface FiltersProps {
-    pokemons: IPokemons[],
     onFilter: (filterList: string[]) => void
 }
 
-
-export const Filters = ({pokemons, onFilter}: FiltersProps) => {
-    const [types, setTypes] = useState<string[]>([])
-    const [filters, setFilters] = useState<{ [key: string]: boolean }>({})
+export const Filters = ({onFilter}: FiltersProps) => {
+    const dispatch = useDispatch();
+    const {pokemons} = useTypesSelector(state => state.pokemons)
+    const {types, filters} = useTypesSelector(state => state.filters)
 
     useEffect(() => {
-        setTypes(getListTypes(pokemons))
-        setFilters(getListFilters(pokemons))
+        dispatch(setTypes(getListTypes(pokemons)))
+        dispatch(setFilters(getListFilters(pokemons)))
     }, [pokemons])
 
     useEffect(() => {
@@ -57,16 +59,16 @@ export const Filters = ({pokemons, onFilter}: FiltersProps) => {
             <h5>Filters: </h5>
             <form>
                 <div className="row justify-content-md-center">
-                    {types.map((value, i) => (
+                    {types?.map((value, i) => (
                         <MyCheckBox
+                            status={filters[value]}
                             key={i}
                             type="checkbox"
                             id={value}
                             name={value}
-                            onChange={(e: { target: { name: string | number; }; }) => setFilters({
-                                ...filters,
-                                [e.target.name]: !filters[e.target.name]
-                            })}
+                            onChange={(e: { target: { name: string }; }) =>
+                                dispatch(setFilters({...filters, [e.target.name]: !filters[e.target.name]
+                            }))}
                         />
                     ))}
                 </div>

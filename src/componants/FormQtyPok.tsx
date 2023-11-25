@@ -1,27 +1,29 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MyInput from "./UI/MyInput/MyInput";
 import MyButton from "./UI/MyButton/MyButton";
 
-interface FormQtyPokProps {
-    qty: number,
-    setQty: (qtyUpdate: number) => void,
-    setModal: (b: boolean) => void
-}
+import {useDispatch} from "react-redux"
+import {setQty} from "../redux/pokemons/actionsPokemons"
+import {setModal, setQtyUpdate} from "../redux/modalWindow/actionsModal"
+import {useTypesSelector} from '../hooks/useTypedSelector';
 
-const FormQtyPok = ({qty, setQty, setModal}: FormQtyPokProps) => {
-    const [qtyUpdate, setQtyUpdate] = useState<number>(qty)
+
+const FormQtyPok = () => {
+    const dispatch = useDispatch();
+    const {qtyUpdate} = useTypesSelector(state => state.modal)
 
     const update = (e: React.FormEvent) => {
         e.preventDefault()
-        setQty(qtyUpdate)
-        setModal(false)
+        dispatch(setQty(+qtyUpdate))
+        dispatch(setModal(false))
     }
 
     return (
         <form onSubmit={update}>
             <MyInput
                 value={qtyUpdate}
-                onChange={(e: { target: { value: React.SetStateAction<number>; }; }) => setQtyUpdate(e.target.value)}
+                onChange={(e: { target: { value: React.SetStateAction<number>; }; }) =>
+                    dispatch(setQtyUpdate(e.target.value))}
                 type="number"
                 placeholder="Quantity pokemons?"
                 min="0"
