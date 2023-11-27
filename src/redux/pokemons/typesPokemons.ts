@@ -2,13 +2,13 @@ import {IPokemons} from "../../model";
 
 import {pokemonsActions} from "./actionsPokemons"
 
-export interface initPokemonsState {
+export interface pokemonsState {
     pokemons: IPokemons[],
     qty: number,
     limit: number,
     currentData: IPokemons[],
     isLoading: boolean,
-    error: null | string,
+    error: null | string ,
 
     cardsPokemon: IPokemons[],
     start: number,
@@ -24,7 +24,7 @@ interface fetchPokemonsAction {
 }
 interface fetchPokemonsErrorAction {
     type: pokemonsActions.FETCH_POKEMONS_ERROR
-    payload: string
+    payload: string | null
 }
 
 interface addPokemonsAction {

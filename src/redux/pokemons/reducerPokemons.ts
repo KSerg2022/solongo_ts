@@ -1,7 +1,7 @@
-import {typesPokemonsActions, initPokemonsState} from "./typesPokemons"
+import {typesPokemonsActions, pokemonsState} from "./typesPokemons"
 import {pokemonsActions} from "./actionsPokemons"
 
-export const initialPokemonState: initPokemonsState = {
+export const initialPokemonState: pokemonsState = {
     pokemons: [],
     qty: 16,
     limit: 10,
@@ -17,11 +17,8 @@ export const initialPokemonState: initPokemonsState = {
     totalPages: 1,
 }
 
-
-
 export const pokemonsReducer = (state = initialPokemonState,
-                                action: typesPokemonsActions): initPokemonsState => {
-
+                                action: typesPokemonsActions): pokemonsState => {
     switch (action.type) {
         case pokemonsActions.FETCH_POKEMONS:
             return {...state, isLoading: action.payload};

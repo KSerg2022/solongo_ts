@@ -4,14 +4,13 @@ import Pokemon from "./Pokemon";
 import Filters from "./Filters";
 import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
-
-import {useDispatch} from "react-redux"
 import {setCurrentData, setPage, setTotalPages} from "../redux/pokemons/actionsPokemons"
 import {useTypesSelector} from "../hooks/useTypedSelector";
+import {useAppDispatch} from "../hooks/useAppDispatch";
 
 
 export const Pokemons: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {pokemons, currentData, totalPages, limit} =
         useTypesSelector(state => state.pokemons)
 

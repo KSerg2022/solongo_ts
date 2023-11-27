@@ -1,4 +1,7 @@
 import {IPokemons} from '../../model'
+import { typesPokemonsActions } from './typesPokemons'
+
+
 
 export enum pokemonsActions {
     FETCH_POKEMONS = 'FETCH_POKEMONS',
@@ -16,13 +19,13 @@ export enum pokemonsActions {
 
 }
 
-export const fetchPokemons = (isloading: boolean) => {
+export const fetchPokemons = (isLoading: boolean): typesPokemonsActions => {
     return {
         type: pokemonsActions.FETCH_POKEMONS,
-        payload: isloading
+        payload: isLoading
     }
 }
-export const fetchPokemonsError = (error: string | null) => {
+export const fetchPokemonsError = (error: string | null ): typesPokemonsActions => {
     return {
         type: pokemonsActions.FETCH_POKEMONS_ERROR,
         payload: error
@@ -30,63 +33,63 @@ export const fetchPokemonsError = (error: string | null) => {
 }
 
 
-export const addPokemons = (pokemon: IPokemons | []) => {
+export const addPokemons = (pokemon: IPokemons): typesPokemonsActions => {
     return {
         type: pokemonsActions.ADD_POKEMONS,
         payload: pokemon
     }
 }
-export const setPokemons = (pokemons: IPokemons[]) => {
+export const setPokemons = (pokemons: IPokemons[]): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_POKEMONS,
         payload: pokemons
     }
 }
-export const setQty = (qty: number) => {
+export const setQty = (qty: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_QTY,
         payload: qty
     }
 }
-export const setLimit = (limit: number) => {
+export const setLimit = (limit: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_LIMIT,
         payload: limit
     }
 }
-export const setCurrentData = (currentData: IPokemons[]) => {
+export const setCurrentData = (currentData: IPokemons[]): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_CURRENT_DATA,
         payload: currentData
     }
 }
 
-export const addCardsPokemon = (cardsPokemon: IPokemons[]) => {
+export const addCardsPokemon = (cardsPokemon: IPokemons[]): typesPokemonsActions => {
     return {
         type: pokemonsActions.ADD_CARDS_POKEMON,
         payload: cardsPokemon
     }
 }
-export const setStart = (start: number) => {
+export const setStart = (start: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_START,
         payload: start
     }
 }
-export const setEnd = (end: number) => {
+export const setEnd = (end: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_END,
         payload: end
     }
 }
 
-export const setPage = (page: number) => {
+export const setPage = (page: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_PAGE,
         payload: page
     }
 }
-export const setTotalPages = (totalPages: number) => {
+export const setTotalPages = (totalPages: number): typesPokemonsActions => {
     return {
         type: pokemonsActions.SET_TOTAL_PAGES,
         payload: totalPages
