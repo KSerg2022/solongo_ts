@@ -4,11 +4,10 @@ import MyButton from "./UI/MyButton/MyButton";
 import MyModal from "./UI/MyModal/MyModal";
 import FormQtyPok from "./FormQtyPok";
 import {MySelect} from "./UI/MySelect/MySelect";
-
-import {useDispatch} from "react-redux"
 import {setLimit} from "../redux/pokemons/actionsPokemons"
 import {setModal} from "../redux/modalWindow/actionsModal"
 import {useTypesSelector} from '../hooks/useTypedSelector';
+import {useAppDispatch} from '../hooks/useAppDispatch';
 
 
 interface HeaderProps {
@@ -16,7 +15,7 @@ interface HeaderProps {
 }
 
 const Header = ({title}: HeaderProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {pokemons, limit, qty} = useTypesSelector(state => state.pokemons)
 
     const updateLimit = (value: React.SetStateAction<number>) => {

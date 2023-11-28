@@ -1,7 +1,7 @@
-import {typesPokemonsActions, initPokemonsState} from "./typesPokemons"
+import {typesPokemonsActions, pokemonsState} from "./typesPokemons"
 import {pokemonsActions} from "./actionsPokemons"
 
-export const initialPokemonState: initPokemonsState = {
+export const initialPokemonState: pokemonsState = {
     pokemons: [],
     qty: 16,
     limit: 10,
@@ -13,15 +13,17 @@ export const initialPokemonState: initPokemonsState = {
     start: 1,
     end: 1,
 
-    page: 1,
-    totalPages: 1,
+    // page: 1,
+    // totalPages: 1,
+
+    pagination: {
+        page: 1,
+        totalPages: 1,
+    }
 }
 
-
-
 export const pokemonsReducer = (state = initialPokemonState,
-                                action: typesPokemonsActions): initPokemonsState => {
-
+                                action: typesPokemonsActions): pokemonsState => {
     switch (action.type) {
         case pokemonsActions.FETCH_POKEMONS:
             return {...state, isLoading: action.payload};
@@ -46,10 +48,17 @@ export const pokemonsReducer = (state = initialPokemonState,
         case pokemonsActions.SET_END:
             return {...state, end: action.payload};
 
+        // case pokemonsActions.SET_PAGE:
+        //     return {...state, page: action.payload};
+        // case pokemonsActions.SET_TOTAL_PAGES:
+        //     return {...state, totalPages: action.payload};
+
         case pokemonsActions.SET_PAGE:
-            return {...state, page: action.payload};
+            return {...state, 
+                pagination: {...state.pagination, page: action.payload}};
         case pokemonsActions.SET_TOTAL_PAGES:
-            return {...state, totalPages: action.payload};
+            return {...state, 
+                pagination: {...state.pagination, totalPages: action.payload}};
 
         default:
             return state;

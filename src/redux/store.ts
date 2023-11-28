@@ -17,5 +17,6 @@ export type RootState = ReturnType<typeof rootReducer>
 
 const enhancer = devToolsEnhancer()
 
-// @ts-ignore
 export const store = createStore(rootReducer, enhancer)
+
+export type AppDispatch = typeof store.dispatch

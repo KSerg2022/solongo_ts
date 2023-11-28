@@ -1,27 +1,30 @@
 import React, {useEffect} from 'react';
 import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
-
-import {useDispatch} from "react-redux"
-import {setFilters, setTypes} from "../redux/filters/actionsFilters"
+import {filtersActions} from "../redux/filters/typesFilters"
 import {useTypesSelector} from '../hooks/useTypedSelector';
+import {useAppDispatch} from '../hooks/useAppDispatch';
 
 function getListTypes(data: IPokemons[]): string[] {
-    let types = new Set<string>()
+    let types: Set<string> = new Set<string>()
     for (let pokemon of data) {
-            for (let type of pokemon.types) {
-                types.add(type)
-            }
+        for (let type of pokemon.types) {
+            types.add(type)
+        }
     }
-    // @ts-ignore
-    return [...types].sort()
+    // return [...types].sort()
+    return [...Array.from(types)].sort()
 }
 
-function getListFilters(data: IPokemons[]) {
-    const types = getListTypes(data)
+function getListFilters(data: IPokemons[], filters: { [key: string]: boolean }) {
+    const types: string[] = getListTypes(data)
     let categories: { [key: string]: boolean } = {}
     for (let type of types) {
-        categories[type] = false
+        if (filters[type]) {
+            categories[type] = true
+        } else {
+            categories[type] = false
+        }
     }
     return categories
 }
@@ -31,13 +34,13 @@ interface FiltersProps {
 }
 
 export const Filters = ({onFilter}: FiltersProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {pokemons} = useTypesSelector(state => state.pokemons)
     const {types, filters} = useTypesSelector(state => state.filters)
 
     useEffect(() => {
-        dispatch(setTypes(getListTypes(pokemons)))
-        dispatch(setFilters(getListFilters(pokemons)))
+        dispatch({type: filtersActions.SET_TYPES, payload: getListTypes(pokemons)})
+        dispatch({type: filtersActions.SET_FILTERS, payload: getListFilters(pokemons, filters)})
     }, [pokemons])
 
     useEffect(() => {
@@ -67,8 +70,10 @@ export const Filters = ({onFilter}: FiltersProps) => {
                             id={value}
                             name={value}
                             onChange={(e: { target: { name: string }; }) =>
-                                dispatch(setFilters({...filters, [e.target.name]: !filters[e.target.name]
-                            }))}
+                                dispatch(
+                                    {type: filtersActions.SET_FILTERS,
+                                    payload: {...filters, [e.target.name]: !filters[e.target.name]} }
+                                )}
                         />
                     ))}
                 </div>

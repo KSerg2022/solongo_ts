@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-
-import {useDispatch} from "react-redux"
-import {setFilters} from "../../../redux/filters/actionsFilters"
+import {filtersActions} from "../../../redux/filters/typesFilters"
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
+import {useAppDispatch} from '../../../hooks/useAppDispatch';
 
 interface MyLiProps {
     type: string
 }
 
 export const MyLi = ({type}: MyLiProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {filters} = useTypesSelector(state => state.filters)
     const [style, setStyle] = useState('')
 
@@ -23,7 +22,8 @@ export const MyLi = ({type}: MyLiProps) => {
     return (
         <li
             style={{cursor: 'pointer'}}
-            onClick={() => dispatch(setFilters({...filters, [type]: !filters[type]}))}
+            onClick={() => dispatch({type: filtersActions.SET_FILTERS,
+                                    payload: {...filters, [type]: !filters[type]}})}
             className={style}
         >
                     <span

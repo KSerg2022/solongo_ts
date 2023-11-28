@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from '../../../hooks/useAppDispatch';
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
 import {setPage,} from "../../../redux/pokemons/actionsPokemons"
 
@@ -12,8 +12,8 @@ const getPagesArray = (totalPages: number) => {
 }
 
 export const Pagination = () => {
-    const dispatch = useDispatch();
-    const {page, totalPages} = useTypesSelector(state => state.pokemons)
+    const dispatch = useAppDispatch();
+    const {page, totalPages} = useTypesSelector(state => state.pokemons.pagination)
 
     let pagesArray = getPagesArray(totalPages)
 
