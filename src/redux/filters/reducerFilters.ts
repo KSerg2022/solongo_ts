@@ -1,5 +1,5 @@
-import {typesFiltersActions, initFiltersState} from "./typesFilters"
-import {filtersActions} from "./actionsFilters"
+import {typesFiltersActions, initFiltersState, filtersActions} from "./typesFilters"
+// import {filtersActions} from "./actionsFilters"
 
 export const initiaFilterslState: initFiltersState = {
     types: [],

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
-import {setFilters, setTypes} from "../redux/filters/actionsFilters"
+import {filtersActions} from "../redux/filters/typesFilters"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 
@@ -39,8 +39,8 @@ export const Filters = ({onFilter}: FiltersProps) => {
     const {types, filters} = useTypesSelector(state => state.filters)
 
     useEffect(() => {
-        dispatch(setTypes(getListTypes(pokemons)))
-        dispatch(setFilters(getListFilters(pokemons, filters)))
+        dispatch({type: filtersActions.SET_TYPES, payload: getListTypes(pokemons)})
+        dispatch({type: filtersActions.SET_FILTERS, payload: getListFilters(pokemons, filters)})
     }, [pokemons])
 
     useEffect(() => {
@@ -70,9 +70,10 @@ export const Filters = ({onFilter}: FiltersProps) => {
                             id={value}
                             name={value}
                             onChange={(e: { target: { name: string }; }) =>
-                                dispatch(setFilters({
-                                    ...filters, [e.target.name]: !filters[e.target.name]
-                                }))}
+                                dispatch(
+                                    {type: filtersActions.SET_FILTERS,
+                                    payload: {...filters, [e.target.name]: !filters[e.target.name]} }
+                                )}
                         />
                     ))}
                 </div>

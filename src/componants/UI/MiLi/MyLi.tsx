@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {setFilters} from "../../../redux/filters/actionsFilters"
+import {filtersActions} from "../../../redux/filters/typesFilters"
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
 import {useAppDispatch} from '../../../hooks/useAppDispatch';
 
@@ -22,7 +22,8 @@ export const MyLi = ({type}: MyLiProps) => {
     return (
         <li
             style={{cursor: 'pointer'}}
-            onClick={() => dispatch(setFilters({...filters, [type]: !filters[type]}))}
+            onClick={() => dispatch({type: filtersActions.SET_FILTERS,
+                                    payload: {...filters, [type]: !filters[type]}})}
             className={style}
         >
                     <span
