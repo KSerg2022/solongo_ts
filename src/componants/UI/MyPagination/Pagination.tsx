@@ -13,7 +13,7 @@ const getPagesArray = (totalPages: number) => {
 
 export const Pagination = () => {
     const dispatch = useAppDispatch();
-    const {page, totalPages} = useTypesSelector(state => state.pokemons)
+    const {page, totalPages} = useTypesSelector(state => state.pokemons.pagination)
 
     let pagesArray = getPagesArray(totalPages)
 

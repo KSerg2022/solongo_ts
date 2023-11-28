@@ -14,8 +14,15 @@ export interface pokemonsState {
     start: number,
     end: number,
 
-    page: number,
-    totalPages: number,
+    // page: number,
+    // totalPages: number,
+    
+    
+    pagination: {
+        page: number,
+        totalPages: number,
+    }
+    
 }
 
 interface fetchPokemonsAction {
@@ -33,41 +40,41 @@ interface addPokemonsAction {
 }
 interface setPokemonsAction {
     type: pokemonsActions.SET_POKEMONS
-    payload : IPokemons[]
+    payload: IPokemons[]
 }
 interface setQtyAction {
     type: pokemonsActions.SET_QTY
-    payload : number
+    payload: number
 }
 interface setLimitAction {
     type: pokemonsActions.SET_LIMIT
-    payload : number
+    payload: number
 }
 interface setCurrentDataAction {
     type: pokemonsActions.SET_CURRENT_DATA
-    payload : IPokemons[]
+    payload: IPokemons[]
 }
 
 interface addCardsPokemonAction {
     type: pokemonsActions.ADD_CARDS_POKEMON
-    payload : IPokemons[]
+    payload: IPokemons[]
 }
 interface setStartAction {
     type: pokemonsActions.SET_START
-    payload : number
+    payload: number
 }
 interface setEndAction {
     type: pokemonsActions.SET_END
-    payload : number
+    payload: number
 }
 
 interface setPageAction {
     type: pokemonsActions.SET_PAGE
-    payload : number
+    payload: number
 }
 interface setTotalPageAction {
     type: pokemonsActions.SET_TOTAL_PAGES
-    payload : number
+    payload: number 
 }
 
 export type typesPokemonsActions =

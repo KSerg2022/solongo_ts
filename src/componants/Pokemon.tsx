@@ -8,8 +8,8 @@ import {useAppDispatch} from '../hooks/useAppDispatch';
 
 export const Pokemon = () => {
     const dispatch = useAppDispatch();
-    const {currentData, cardsPokemon, limit, page, start, end} =
-        useTypesSelector(state => state.pokemons)
+    const {currentData, cardsPokemon, limit, start, end} = useTypesSelector(state => state.pokemons)
+    const { page } = useTypesSelector(state => state.pokemons.pagination)
 
     useEffect(() => {
         const start = (page - 1) * limit
@@ -23,9 +23,7 @@ export const Pokemon = () => {
     }, [currentData])
 
     return (
-    // @ts-ignore
         <div className="row d-flex justify-content-center mb-3">
-            {/*// @ts-ignore*/}
             {cardsPokemon.slice(start, end).map(pokemon =>
                     <CardPokemon
                         key={pokemon.id}

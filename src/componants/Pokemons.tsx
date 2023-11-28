@@ -11,8 +11,8 @@ import {useAppDispatch} from "../hooks/useAppDispatch";
 
 export const Pokemons: React.FC = () => {
     const dispatch = useAppDispatch();
-    const {pokemons, currentData, totalPages, limit} =
-        useTypesSelector(state => state.pokemons)
+    const {pokemons, currentData, limit} = useTypesSelector(state => state.pokemons)
+    const {totalPages} = useTypesSelector(state => state.pokemons.pagination)
 
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)
