@@ -5,7 +5,8 @@ import MyModal from "./UI/MyModal/MyModal";
 import FormQtyPok from "./FormQtyPok";
 import {MySelect} from "./UI/MySelect/MySelect";
 import {setLimit} from "../redux/pokemons/actionsPokemons"
-import {setModal} from "../redux/modalWindow/actionsModal"
+// import {setModal} from "../redux/modalWindow/actionsModal"
+import {modalActions} from "../redux/modalWindow/typesModal"
 import {useTypesSelector} from '../hooks/useTypedSelector';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 
@@ -53,7 +54,8 @@ const Header = ({title}: HeaderProps) => {
                 type="button"
                 title="Input quantity pokemons..."
                 className="col-lg-3"
-                onClick={() =>  dispatch(setModal(true))}
+                // onClick={() =>  dispatch(setModal(true))}
+                onClick={() =>  dispatch({type: modalActions.SET_MODAL, payload: true})}
             />
         </div>
     );

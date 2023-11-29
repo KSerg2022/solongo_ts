@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from "./MyModal.module.css";
-import {setModal} from "../../../redux/modalWindow/actionsModal"
+// import {setModal} from "../../../redux/modalWindow/actionsModal"
+import {modalActions} from "../../../redux/modalWindow/typesModal"
 import {useTypesSelector} from '../../../hooks/useTypedSelector';
 import {useAppDispatch} from '../../../hooks/useAppDispatch';
 
@@ -18,7 +19,10 @@ const MyModal = ({children}: MyModalProps) => {
     }
 
     return (
-        <div className={rootClasses.join(' ')} onClick={() => dispatch(setModal(false))}>
+        // <div className={rootClasses.join(' ')} onClick={() => dispatch(setModal(false))}>
+        <div className={rootClasses.join(' ')}
+             onClick={() => dispatch({type: modalActions.SET_MODAL,
+                 payload: false})}>
             <div className={classes.myModalContent} onClick={e => e.stopPropagation()}>
                 {children}
             </div>

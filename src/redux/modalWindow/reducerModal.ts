@@ -1,14 +1,14 @@
-import {typesModalActions, initStateModal} from "./typesModal"
-import {modalActions} from "./actionsModal"
+import {typesModalActions, initModalState, modalActions} from "./typesModal"
+// import {modalActions} from "./actionsModal"
 
-export const initialModalState: initStateModal = {
+export const initialModalState: initModalState = {
     modal: false,
     qtyUpdate: 16,
 }
 
 
 export const modalReducer = (state = initialModalState,
-                             action: typesModalActions): initStateModal => {
+                             action: typesModalActions): initModalState => {
 
     switch (action.type) {
         case modalActions.SET_MODAL:

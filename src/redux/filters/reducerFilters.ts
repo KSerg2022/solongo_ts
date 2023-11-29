@@ -7,7 +7,8 @@ export const initiaFilterslState: initFiltersState = {
 }
 
 
-export const filtersReducer = (state = initiaFilterslState, action: typesFiltersActions): initFiltersState => {
+export const filtersReducer = (state = initiaFilterslState,
+                               action: typesFiltersActions): initFiltersState => {
     switch (action.type) {
 
         case filtersActions.SET_TYPES:
