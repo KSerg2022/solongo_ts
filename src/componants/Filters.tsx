@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
 import MyCheckBox from "./UI/MyCheckBox/MyCheckBox";
 import {IPokemons} from "../model";
-
-import {useDispatch} from "react-redux"
-import {allActions, setFilters, setTypes} from "../redux/actions"
-import {useTypesSelector} from '../hooks/useTypedSelector';
-import { useStateContext } from '../redux/store';
+import {allActions} from "../redux/actions"
+import {useStateContext} from '../redux/store';
 
 function getListTypes(data: IPokemons[]): string[] {
     let types = new Set<string>()
@@ -32,18 +29,13 @@ interface FiltersProps {
 }
 
 export const Filters = ({onFilter}: FiltersProps) => {
-    // const dispatch = useDispatch();
-    // const {pokemons, types, filters} = useTypesSelector(state => state.pokemons)
-
     const {
         dispatch,
         state: {pokemons, types, filters},
     } = useStateContext();
 
     useEffect(() => {
-        // dispatch(setTypes(getListTypes(pokemons)))
         dispatch({type: allActions.SET_TYPES, payload: getListTypes(pokemons)})
-        // dispatch(setFilters(getListFilters(pokemons)))
         dispatch({type: allActions.SET_FILTERS, payload: getListFilters(pokemons)})
     }, [pokemons])
 
@@ -63,6 +55,7 @@ export const Filters = ({onFilter}: FiltersProps) => {
         onFilter(filterList)
     }
 
+
     return (<div className="filters">
             <h5>Filters: </h5>
             <form>
@@ -73,14 +66,10 @@ export const Filters = ({onFilter}: FiltersProps) => {
                             type="checkbox"
                             id={value}
                             name={value}
-                            // onChange={(e: { target: { name: string | number; }; }) =>
-                                // dispatch(setFilters({...filters,
-                                // // @ts-ignore
-                                // [e.target.name]: !filters[e.target.name]
                             onChange={(e: { target: { name: string }; }) =>
                                 dispatch({type: allActions.SET_FILTERS,
                                     payload: {...filters,
-                                // @ts-ignore
+                                        // @ts-ignore
                                 [e.target.name]: !filters[e.target.name]}
                             })}
                         />

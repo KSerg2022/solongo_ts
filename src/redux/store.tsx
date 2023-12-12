@@ -1,20 +1,11 @@
 import {initialState, pokemonsReducer} from './reducer'
-//
-//
-// const enhancer = devToolsEnhancer()
-//
-// // @ts-ignore
-// export const store = createStore(rootReducer, enhancer)
 import {createContext, FC, PropsWithChildren, useContext, useReducer,} from "react";
 import {allTypesActions, initState} from "./types";
-// import * as allActions from "./actions"
-
 
 
 type StateContextProps = {
   state: initState;
   dispatch: React.Dispatch<allTypesActions>;
-  // dispatch: React.Dispatch<allActions>;
 };
 
 export const StateContext = createContext(null as unknown as StateContextProps);

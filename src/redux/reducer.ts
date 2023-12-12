@@ -1,5 +1,4 @@
-import {combineReducers} from "redux"
-import {initState, allTypesActions} from "./types"
+import {allTypesActions, initState} from "./types"
 import {allActions} from "./actions"
 
 export const initialState: initState = {
@@ -71,10 +70,3 @@ export const pokemonsReducer = (state = initialState, action: allTypesActions): 
             return state;
     }
 }
-
-
-export const rootReducer = combineReducers({
-    pokemons: pokemonsReducer,
-})
-
-export type RootState = ReturnType<typeof rootReducer>
