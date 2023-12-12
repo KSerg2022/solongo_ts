@@ -6,29 +6,41 @@ import {IPokemons} from "../model";
 import {Pagination} from "./UI/MyPagination/Pagination";
 
 import {useDispatch} from "react-redux"
-import {setCurrentData, setPage, setTotalPages} from "../redux/actions"
+import {allActions, setCurrentData, setPage, setTotalPages} from "../redux/actions"
 import {useTypesSelector} from "../hooks/useTypedSelector";
+import { useStateContext } from "../redux/store";
 
 
 // @ts-ignore
 export const Pokemons: React.FC = () => {
-    const dispatch = useDispatch();
-    const {pokemons, currentData, totalPages, limit, isLoading, error} =
-        useTypesSelector(state => state.pokemons)
+    // const dispatch = useDispatch();
+    // const {pokemons, currentData, totalPages, limit, isLoading, error} =
+    //     useTypesSelector(state => state.pokemons)
+        const {
+        dispatch,
+        state: {pokemons, currentData, totalPages, limit, isLoading, error},
+    } = useStateContext();
+
+
 
     useEffect(() => {
         const qtyPages = Math.ceil(currentData.length / limit)
-        dispatch(setTotalPages(qtyPages))
-        dispatch(setPage(1))
+        // dispatch(setTotalPages(qtyPages))
+        dispatch({type: allActions.SET_TOTAL_PAGES, payload: qtyPages})
+        // dispatch(setPage(1))
+        dispatch({type: allActions.SET_PAGE, payload: 1})
     }, [limit, currentData])
 
 
     function filteredPokemons(filter: string[]) {
         filter.length === 0
             ?
-            dispatch(setCurrentData(sortedPokemons(pokemons)))
+            // dispatch(setCurrentData(sortedPokemons(pokemons)))
+            dispatch({type: allActions.SET_CURRENT_DATA, payload: pokemons})
             :
-            dispatch(setCurrentData([...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))));
+            // dispatch(setCurrentData([...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))));
+            dispatch({type: allActions.SET_CURRENT_DATA,
+                payload: [...sortedPokemons(pokemons)].filter((pokemon: IPokemons) => everyType(pokemon.types, filter))})
     }
 
     function everyType(types: string | any[], filter: any[]) {

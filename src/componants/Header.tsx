@@ -6,8 +6,9 @@ import FormQtyPok from "./FormQtyPok";
 import {MySelect} from "./UI/MySelect/MySelect";
 
 import {useDispatch} from "react-redux"
-import {setLimit, setModal} from "../redux/actions"
+import {allActions, setLimit, setModal} from "../redux/actions"
 import {useTypesSelector} from '../hooks/useTypedSelector';
+import { useStateContext } from '../redux/store';
 
 
 interface HeaderProps {
@@ -15,14 +16,21 @@ interface HeaderProps {
 }
 
 const Header = ({title}: HeaderProps) => {
-    const dispatch = useDispatch();
-    const {pokemons, limit, qty} = useTypesSelector(state => state.pokemons)
+    // const dispatch = useDispatch();
+    // const {pokemons, limit, qty} = useTypesSelector(state => state.pokemons)
+
+    const {
+        dispatch,
+        state: {pokemons, limit, qty},
+    } = useStateContext();
 
     const updateLimit = (value: React.SetStateAction<number>) => {
         if (value === -1) {
-            dispatch(setLimit(pokemons.length))
+            // dispatch(setLimit(pokemons.length))
+            dispatch({type: allActions.SET_LIMIT, payload: pokemons.length})
         } else {
-            dispatch(setLimit(+value))
+            // dispatch(setLimit(+value))
+            dispatch({type: allActions.SET_LIMIT, payload: +value})
         }
     }
 
@@ -53,7 +61,8 @@ const Header = ({title}: HeaderProps) => {
                 type="button"
                 title="Input quantity pokemons..."
                 className="col-lg-3"
-                onClick={() =>  dispatch(setModal(true))}
+                // onClick={() =>  dispatch(setModal(true))}
+                onClick={() =>  dispatch({type: allActions.SET_MODAL, payload: true})}
             />
         </div>
     );
